@@ -1,0 +1,257 @@
+package org.iita.trainingunit.iya.service;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.iita.security.model.User;
+import org.iita.security.service.UserService;
+import org.iita.trainingunit.announcements.model.TrainingLocation;
+import org.iita.trainingunit.iya.model.IYAAnnouncementObjective;
+import org.iita.trainingunit.iya.model.IYAEvaluation;
+import org.iita.trainingunit.iya.model.IYARegistration;
+import org.iita.trainingunit.iya.model.IYATrainingAnnouncement;
+import org.iita.trainingunit.model.Trainer;
+import org.iita.util.PagedResult;
+import org.springframework.transaction.annotation.Transactional;
+
+public class IyaServiceImpl implements IyaService {
+	private static final Log LOG = LogFactory.getLog(IyaServiceImpl.class);
+	private EntityManager entityManager;
+	private UserService userService;
+	
+	/**
+	 * @see org.iita.service.impl.SimpleDaoServiceImpl#setEntityManager(javax.persistence.EntityManager)
+	 */
+	@PersistenceContext
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public PagedResult<IYARegistration> iyaRegistrations(int startAt, int maxResults) {
+		PagedResult<IYARegistration> paged = new PagedResult<IYARegistration>(startAt, maxResults);
+		paged.setResults(this.entityManager.createQuery("from IYARegistration a " +
+				"order by a.createdDate desc").setFirstResult(startAt)
+				.setMaxResults(maxResults).getResultList());
+		
+		if (paged.getResults().size() > 0)
+			paged.setTotalHits(((Long) this.entityManager.createQuery("select count (a) from IYARegistration a").getSingleResult()).longValue());
+		
+		return paged;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
+	public List<IYARegistration> iyaRegistrations() {
+		return this.entityManager.createQuery("from IYARegistration a order by a.createdDate desc limit 10").getResultList();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public PagedResult<IYATrainingAnnouncement> iyaTrainingAnnoucements(int startAt, int maxResults) {
+		PagedResult<IYATrainingAnnouncement> paged = new PagedResult<IYATrainingAnnouncement>(startAt, maxResults);
+		paged.setResults(this.entityManager.createQuery("from IYATrainingAnnouncement a " +
+				"order by a.createdDate desc").setFirstResult(startAt)
+				.setMaxResults(maxResults).getResultList());
+		
+		if (paged.getResults().size() > 0)
+			paged.setTotalHits(((Long) this.entityManager.createQuery("select count (a) from IYATrainingAnnouncement a").getSingleResult()).longValue());
+		
+		return paged;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
+	public List<IYATrainingAnnouncement> iyaAnnoucements() {
+		return this.entityManager.createQuery("from IYATrainingAnnouncement a order by a.createdDate desc limit 10").getResultList();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public PagedResult<IYAEvaluation> iyaEvaluations(int startAt, int maxResults) {
+		PagedResult<IYAEvaluation> paged = new PagedResult<IYAEvaluation>(startAt, maxResults);
+		paged.setResults(this.entityManager.createQuery("from IYAEvaluation a " +
+				"order by a.createdDate desc").setFirstResult(startAt)
+				.setMaxResults(maxResults).getResultList());
+		
+		if (paged.getResults().size() > 0)
+			paged.setTotalHits(((Long) this.entityManager.createQuery("select count (a) from IYAEvaluation a").getSingleResult()).longValue());
+		
+		return paged;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public IYARegistration saveRegistration(IYARegistration registration) {
+		LOG.info("Registration: " + registration);
+		
+		//Cleaning up the data arrays
+		//cleanupRegistration(registration);
+		
+		if(registration.getId()==null){
+			this.entityManager.persist(registration);
+		}else{
+			this.entityManager.merge(registration);
+		}
+		
+		return registration;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public IYATrainingAnnouncement saveAnnouncement(IYATrainingAnnouncement announcement) {
+		LOG.info("Announcement: " + announcement);
+		LOG.info("Announcement ID: " + announcement.getId());
+		//Cleaning up the data arrays
+		cleanupAnnouncement(announcement);
+		
+		if(announcement.getId()==null)
+			this.entityManager.persist(announcement);
+		
+		return announcement;
+	}
+
+	@Override
+	@Transactional
+	public IYAEvaluation saveEvaluation(IYAEvaluation evaluation) {
+		LOG.info("Evaluation: " + evaluation);
+		
+		//Cleaning up the data arrays
+		//cleanupEvaluation(evaluation);
+		
+		if(evaluation.getId()==null)
+			this.entityManager.persist(evaluation);
+		else
+			this.entityManager.merge(evaluation);
+		
+		
+		return evaluation;
+	}
+	
+	@Override
+	@Transactional(readOnly=false)
+	public IYATrainingAnnouncement updateAnnouncement(IYATrainingAnnouncement announcement) {
+		LOG.info("Announcement: " + announcement);
+		LOG.info("Announcement ID: " + announcement.getId());
+		//Cleaning up the data arrays
+		for(int i = announcement.getTrainingObjectives().size() - 1; i >= 0; i--){
+			System.out.println("OBJ " + i + " : " + announcement.getTrainingObjectives().get(i).getObjective());
+		}
+		
+		cleanupAnnouncement(announcement);
+		
+		for(int i = announcement.getTrainingObjectives().size() - 1; i >= 0; i--){
+			System.out.println("OBJ " + i + " : " + announcement.getTrainingObjectives().get(i).getObjective());
+		}
+		
+		if(announcement.getId()!=null)
+			this.entityManager.merge(announcement);
+		
+		return announcement;
+	}
+	
+	/**
+	 * 
+	 */
+	
+	@Transactional
+	public void cleanupAnnouncement(IYATrainingAnnouncement announcement) {
+
+			if(announcement.getFacilitators()!=null){
+				// cleanup facilitators
+				for (int i = announcement.getFacilitators().size() - 1; i >= 0; i--) {
+					Trainer facilitator = announcement.getFacilitators().get(i);
+					if(facilitator!=null){
+						if (facilitator.getNames() == null || facilitator.getNames().length() == 0) {
+							LOG.info("Removing Facilitator: " + facilitator);
+							ensureRemoved(announcement.getFacilitators().remove(i));
+						} else{
+							LOG.info("Adding Facilitator: " + facilitator);
+							if(facilitator.getEmail()!=null){
+								User user = null;
+								user = this.userService.lookup(facilitator.getEmail(), true);
+								
+								if(user!=null)
+									facilitator.setNames(user.getFullName());
+							}
+							
+							facilitator.setIyaTrainingAnnouncement(announcement);
+						}
+					}
+				}
+			}
+			
+			if(announcement.getTrainingObjectives()!=null){
+				// cleanup trainingObjectives
+				for (int i = announcement.getTrainingObjectives().size() - 1; i >= 0; i--) {
+					IYAAnnouncementObjective obj = announcement.getTrainingObjectives().get(i);
+					if(obj!=null){
+						if (obj.getObjective() == null || obj.getObjective().length() == 0) {
+							LOG.info("Removing objectives: " + obj);
+							ensureRemoved(announcement.getTrainingObjectives().remove(i));
+						} else{
+							LOG.info("Adding objectives: " + obj);
+							obj.setIyaTrainingAnnouncement(announcement);
+						}
+					}
+				}
+			}
+			
+			if(announcement.getTrainingLocations()!=null){
+				// cleanup trainingObjectives
+				for (int i = announcement.getTrainingLocations().size() - 1; i >= 0; i--) {
+					TrainingLocation loc = announcement.getTrainingLocations().get(i);
+					if(loc!=null){
+						if (loc.getVenue() == null || loc.getVenue().length() == 0) {
+							LOG.info("Removing locations " + loc);
+							ensureRemoved(announcement.getTrainingLocations().remove(i));
+						} else{
+							LOG.info("Adding locations " + loc);
+							loc.setIyaTrainingAnnouncement(announcement);
+						}
+					}
+				}
+			}
+	}
+	
+	/**
+	 * Utility method checks if object is in session and deletes from persistent storage
+	 * 
+	 * @param objectToRemove
+	 */
+	@Transactional
+	private void ensureRemoved(Object objectToRemove) {
+		// if (this.entityManager.contains(objectToRemove))
+		if (objectToRemove != null) {
+			LOG.info("EM removing " + objectToRemove);
+			this.entityManager.remove(objectToRemove);
+		}
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public IYATrainingAnnouncement loadAnnouncement(long id) {
+		return this.entityManager.find(IYATrainingAnnouncement.class, id);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public IYARegistration loadRegistration(long id) {
+		return this.entityManager.find(IYARegistration.class, id);
+	}
+
+}

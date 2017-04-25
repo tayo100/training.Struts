@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Tag builder</title>
+</head>
+<body>
+<h1>Tag builder</h1>
+<p>Tag builder allows CRM users to re-use existing sets of tags. Builder will inspect the database for different tag categories and render all category
+sections with all their tags on one screen. By <b>ticking/checking</b> the box next to the tag, that assigns the tag to the entity.</p>
+<p class="help-img"><img src="img/tagbuilder.png" /> Tag builder in action</p>
+<p>After selecting the tags you wish to apply or deselecting the ones already applied, click the <b>Save tags</b> button at the bottom of the page. All
+affected tags will be updated.</p>
+
+<h2>Percentage</h2>
+<p>In CRM, some tags may carry a <b>percentage</b> value. When using percentage values, make sure they add up to <b>100%</b>!</p>
+
+</body>
+</html>

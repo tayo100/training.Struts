@@ -1,0 +1,24 @@
+package org.iita.trainingunit.iya.service;
+
+import java.util.List;
+
+import org.iita.trainingunit.iya.model.IYAEvaluation;
+import org.iita.trainingunit.iya.model.IYARegistration;
+import org.iita.trainingunit.iya.model.IYATrainingAnnouncement;
+import org.iita.util.PagedResult;
+
+public interface IyaService {
+
+	PagedResult<IYARegistration> iyaRegistrations(int startAt, int maxResults);
+	PagedResult<IYATrainingAnnouncement> iyaTrainingAnnoucements(int startAt, int maxResults);
+	PagedResult<IYAEvaluation> iyaEvaluations(int startAt, int maxResults);
+	
+	IYARegistration saveRegistration(IYARegistration registration);
+	IYATrainingAnnouncement saveAnnouncement(IYATrainingAnnouncement announcement);
+	IYAEvaluation saveEvaluation(IYAEvaluation evaluation);
+	List<IYARegistration> iyaRegistrations();
+	List<IYATrainingAnnouncement> iyaAnnoucements();
+	IYATrainingAnnouncement loadAnnouncement(long id);
+	IYARegistration loadRegistration(long id);
+	IYATrainingAnnouncement updateAnnouncement(IYATrainingAnnouncement announcement);
+}

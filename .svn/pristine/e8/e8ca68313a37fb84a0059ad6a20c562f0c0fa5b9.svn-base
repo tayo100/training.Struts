@@ -1,0 +1,30 @@
+.form-signin {
+    margin: 0 auto;
+    max-width: 330px;
+    padding: 15px;
+}
+
+div#sessionAlert { display: none; top: 0; position: fixed; border-bottom: solid 2px black; left: 0px; width: 100%; }
+div#sessionAlert div.warning { background-color: Yellow; padding: 10px 20px; }
+div#sessionAlert div.expired { background-color: Yellow; color: Red; padding: 15px 20px 0px 20px; height: 35px; font-weight: bold; }
+div#sessionAlert span.timer { font-weight: bold; }
+div#sessionAlert[class="noprint sessionAlertWarning"], div#sessionAlert[class="noprint sessionAlertExpired"] { display: block; }
+div.sessionAlertWarning div.warning { display: block; }
+div.sessionAlertWarning div.expired { display: none; }
+div.sessionAlertExpired div.warning { display: none; }
+div.sessionAlertExpired div.expired { display: block; }
+
+/* Float Properties*/
+.clearfloat:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clearfloat { display: inline-block; }
+/* Hides from IE-mac \*/
+* html .clearfloat { height:1%; }
+*+html .clearfloat { height:1%; }
+.clearfloat { display:block; }
+
+
+/* Help */
+div.inline-help { border-left: 2px solid #303030; margin-left: 10px; margin-top: 1px; }
+div.inline-help > div.inline-help-contents { margin-top: 2px; background-color: #FEEFCF; border: solid 1px Black; border-left: 0; padding: 5px 10px; overflow: hidden; }
+.help-img { text-align: center; font-style: italic; font-weight: bold; }
+.help-img img { display: block; margin: 0 auto; border: 1px dotted Black; padding: 5px; }

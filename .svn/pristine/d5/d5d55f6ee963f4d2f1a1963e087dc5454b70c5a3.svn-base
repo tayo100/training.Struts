@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Installments</title>
+</head>
+<body>
+<h1>Installments</h1>
+<p>Installments define <b>money flow</b> between organizations. Installments are usually defined in agreemetns.</p>
+<p class="help-img"><img src="img/installment.png" /> Installment detail</p>
+
+<h2>Installment details</h2>
+<ul>
+<li><b>Description:</b> Description of an installment, text should be explanatory enough.</li>
+<li><b>State:</b> Installment state can be one of <em>Pending</em>, <em>Paid</em> or <em>Canceled</em>.</li>
+<li><b>Cash payment:</b> When <b>ticked</b> installment is actual money transfer. With inkind contributions, there is no actual money transfer.</li>
+<li><b>From:</b> Organization - Source of financing.</li>
+<li><b>Recipient:</b> Organization - Recipient.</li>
+<li><b>Project:</b> ProMIS Project that receives the money.</li>
+<li><b>Agreement:</b> Agreement where transaction is defined.</li>
+<li><b>Expected:</b> Date when payment expected.</li>
+<li><b>Date paid:</b> Date when payment completed.</li>
+<li><b>Original amount:</b> Original amount and currency (may be EUR, NGN, etc) is converted to <b>USD Amount</b>.</li>
+<li><b>USD Amount:</b> Installment value in USD.</li>
+</ul>
+
+
+</body>
+</html>

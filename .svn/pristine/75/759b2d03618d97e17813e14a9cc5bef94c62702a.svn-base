@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Cost center profile</title>
+</head>
+<body>
+<h1>Cost center profile</h1>
+<p>Cost center <b>Profile</b> page displays information on cost cost center, coming from OPD summary data in Oracle. The information is refreshed nightly.
+Note that when ProMIS CRM cannot connect to Oracle, the information is not available.</p>
+
+<ul>
+	<li>Oracle annual Budget & Expenditure</li>
+	<li>Chart of monthly expenditure for 18 months</li>
+	<li>Table of monthly expenditures for 18 months</li>
+	<li>List of approvers on cost center</li>
+	<li>Other cost centers of the project</li>
+</ul>
+
+</body>
+</html>

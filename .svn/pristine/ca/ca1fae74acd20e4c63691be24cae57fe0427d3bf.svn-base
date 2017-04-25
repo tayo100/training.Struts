@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+    ">
+
+<!--  The default
+	<bean id="applicationMail" class="org.iita.appmail.service.ApplicationMail">
+		<property name="mailHandler">
+			<bean class="org.iita.projecttask.service.impl.MailHandlerImpl" />
+		</property>
+	</bean>
+-->
+	<bean id="applicationMail" class="org.iita.crm.service.CoreCRMMailServiceImpl">
+		<property name="mailHandler">
+			<bean class="org.iita.promis.service.MailHandlerImpl" />
+		</property>
+	</bean>
+	
+	<bean id="jmsApplicationMailReceiver" class="org.iita.appmail.service.MailJMSReceiver">
+		<constructor-arg ref="applicationMail" />
+	</bean>
+	
+	<jms:listener-container connection-factory="jmsConnectionFactory" transaction-manager="transactionManager" acknowledge="transacted" concurrency="10">
+		<jms:listener destination="${appmail.jms.queue}" ref="jmsApplicationMailReceiver" />
+	</jms:listener-container>
+	
+	<bean id="listMailAction" class="org.iita.appmail.action.ListMailAction" scope="request">
+		<constructor-arg ref="applicationMail" />
+	</bean>
+	
+	<bean id="mailAction" class="org.iita.appmail.action.MailAction" scope="request">
+		<constructor-arg ref="applicationMail" />
+	</bean>
+</beans>

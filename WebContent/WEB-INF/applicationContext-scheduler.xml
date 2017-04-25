@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<bean id="openSessionInView" class="org.iita.trainingunit.cron.OpenSessionInView">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- Use AspectJ to wrap QuartzJobs with an open entity manager session -->
+	<aop:config>
+		<aop:aspect ref="openSessionInView">
+			<!-- Monday email wrapper -->
+			<aop:before method="open" pointcut="execution(* org.iita.trainingunit.cron.QuartzJob.executeQuartz(..))" />
+			<aop:after method="close" pointcut="execution(* org.iita.trainingunit.cron.QuartzJob.executeQuartz(..))" />
+		</aop:aspect>
+	</aop:config>
+
+	<!-- Setup scheduler factory -->
+	<bean id="trainingUnitScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<bean class="org.springframework.scheduling.quartz.CronTriggerBean">
+					<property name="name" value="Monday morning emails" />
+					<property name="description" value="Execute Queries at 18:30 and send as email to trainees/trainers of training programs." />
+					<!-- see the example of method invoking job above -->
+					<property name="jobDetail">
+						<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+							<property name="name" value="org.iita.trainingunit.cron.EmailReports" />
+							<property name="targetObject">
+								<bean id="mondayEmail" class="org.iita.trainingunit.cron.AutoAlertNotificationAction">
+									<constructor-arg ref="trainingUnitService" />
+								</bean>
+							</property>
+							<property name="targetMethod" value="executeQuartz" />
+							<property name="concurrent" value="false" />
+						</bean>
+					</property>
+					<!-- Quartz cron expression: second minute hour day-of-month month day-of week -->
+					<!-- Can use ? for day of month/week  -->
+					<!-- 0 30 7 ? * mon == every monday morning, every month, whatever day of month at 7:30:00 -->
+
+					<!-- <property name="cronExpression" value="0 30 7 ? * mon" /> -->
+					<property name="cronExpression" value="0 30 18 ? * *" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="adminScheduleAction" class="org.iita.struts.action.admin.SchedulerAction" scope="request">
+		<property name="scheduler" ref="trainingUnitScheduler" />
+	</bean>
+</beans>

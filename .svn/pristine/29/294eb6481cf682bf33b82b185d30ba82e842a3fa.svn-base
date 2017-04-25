@@ -1,0 +1,341 @@
+# The block of messages below are only found in this file. If you'd
+# like to override them for other languages, simply add the keys
+# to the other resource bundles.
+webapp.name=IITA CDO/Training System
+webapp.tagline=All your base are belong to us.
+webapp.version=Version 0.2
+company.name=IITA
+company.url=http://www.iita.org
+copyright.year=2008
+
+# Formats
+date.format=dd/MM/yyyy
+
+# Formatting
+format.time = {0,time}
+format.number = {0,number,#,##0.00}
+format.percent = {0,number,##0.00'%'}
+format.money = {0,number,\#,##0.00}
+format.date = {0,date,dd/MM/yyyy}
+
+# -- error page messages --
+errorPage.title=An error has occurred
+errorPage.heading=Yikes! An error occured in the application.
+404.title=Page Not Found
+404.message=The page you requested was not found.  You might try returning to the <a href="{0}">Main Menu</a>.
+403.title=Access Denied
+403.message=Your current role does not allow you to perform the requested action.  Please contact your system administrator if you believe you should have access.
+
+# SEARCH
+search.paging.title=Result page
+search.paging.previous=Previous
+search.paging.next=Next
+search.paging.last=Last
+search.paging.first=First
+
+# User
+password.request.subject=Request to regenerate password for IITA on-line application
+password.generated.subject=Password for IITA on-line application
+
+user.role.ROLE_ADMIN=System Administrator
+user.role.desc.ROLE_ADMIN=Manages user access to application, adds new units to system
+
+user.role.ROLE_CFO=Chief Financial Officer
+user.role.desc.ROLE_CFO=Makes final approval of Application
+
+user.role.ROLE_MAIL=Mail manager
+user.role.desc.ROLE_MAIL=Manages all application mail
+
+user.role.ROLE_CRM=CRM Manager
+user.role.desc.ROLE_CRM=Manages all CRM (person, organization) data
+
+user.role.ROLE_QUERYMANAGER=Query manager
+user.role.desc.ROLE_QUERYMANAGER=Edits and maintains all JPA queries
+
+user.role.ROLE_QUERY=Query runner
+user.role.desc.ROLE_QUERY=Can run system-wide queries
+
+user.role.ROLE_HEAD=Unit Head
+user.role.desc.ROLE_HEAD=Manages training programs, adds new training programs to system
+
+user.role.ROLE_MERGE=Merger
+user.role.desc.ROLE_MERGE=Allowed to merge CRM records
+
+user.role.ROLE_READALL=Reader
+user.role.desc.ROLE_READALL=Can access all records in the system
+
+user.role.ROLE_READTAG=Tagged reader
+user.role.desc.ROLE_READTAG=Can access records in the system with matching tags
+
+user.role.ROLE_PARTNERADMIN=Partners' data Administrator
+user.role.desc.ROLE_PARTNERADMIN=Manages partners' data in the system
+
+user.role.ROLE_PARTNERREADALL=Partners' data reader
+user.role.desc.ROLE_PARTNERREADALL=Accesses partners' data in the system
+
+user.role.ROLE_APPLICATION=Applications related matters and notifications
+user.role.desc.ROLE_APPLICATION=Manages & receives alerts/notifications on applications
+
+user.role.ROLE_REGISTRATION=Registrations related matters and notifications
+user.role.desc.ROLE_REGISTRATION=Manages & receives alerts/notifications on registrations
+
+user.role.ROLE_TRAININGUNITHEAD=Training Unit Head
+user.role.desc.ROLE_TRAININGUNITHEAD=Manages training programs, adds new training programs to system
+
+user.role.ROLE_APPLICANT=Training Applicant
+user.role.desc.ROLE_APPLICANT=Manages only his/her related training applications in the system
+
+user.role.ROLE_STAFF=IITA Staff Applicant
+user.role.desc.ROLE_STAFF=Accesses related training applications and other unrestricted training information in the system
+
+user.role.ROLE_IYAICT=IITA Youth Agripreneur ICT Staff
+user.role.desc.ROLE_IYAICT=Manages data for IYA with some restrictions
+
+user.role.ROLE_IYAMANAGER=IITA Youth Agripreneur Manager
+user.role.desc.ROLE_IYAMANAGER=Manages IITA Youth Agripreneur information
+
+user.role.ROLE_IYAUSER=IITA Youth Agripreneur Applicant
+user.role.desc.ROLE_IYAUSER=Accesses related training applications and other unrestricted training information in the system
+
+# Request
+request.client.emailRequired=A contact e-mail address must be provided.
+request.client.lastNameRequired=Your last name is a required field.
+request.client.instituteNameRequired=Please provide institute name.
+request.client.intendedUseRequired=Please select intended germplasm use and provide project description.
+
+request.confirmation.orderKeyRequired=Order key was not provided
+request.confirmation.requestIdRequired=Request ID was not provided
+
+request.admin.requestMissing=Request not loaded or missing
+request.admin.approve.commentRequired=Please provide comment to be sent with approval e-mail message
+request.admin.reject.commentRequired=Please provide comment to be sent with rejection e-mail message
+
+
+# Notifications
+notification.frequency.WITHINAPPLICATION=Within application
+notification.frequency.INSTANT=Instant
+notification.frequency.DAILY=Daily
+notification.frequency.MONTHLY=Monthly
+
+notification.priority.LOW=Low
+notification.priority.NORMAL=Normal
+notification.priority.HIGH=High
+
+
+notification.userLoggedIn=User logon
+notification.userLoggedIn.description=Notifies you when users successfully authenticate
+notification.authenticationFailed=Authentication failure
+notification.authenticationFailed.description=Sends notification when authentication fails
+notification.userLoggingOut=User log-off
+notification.userLoggingOut.description=Notifies you when users log out of the application
+notification.userSwitched=User switched
+notification.userSwitched.description=Sends notification when a user switches to another user
+notification.userUnswitched=User unswitched
+notification.userUnswitched.description=Sends notification when user switches back to themselves
+notification.applicationExceptionThrown=Application exception
+notification.applicationExceptionThrown.description=Send notification when exceptions happen in code
+notification.emailsSent=Email sent
+notification.emailsSent.description=Notify every time email is sent from this application
+
+notification.entitiesMerged=Data Merge
+notification.entitiesMerged.description=Notify when entities are merged
+notification.affiliationUpdated=Affiliation updated
+notification.affiliationUpdated.description=An affiliation is added or updated
+notification.affiliationRemoved=Affiliation removed
+notification.affiliationRemoved.description=An affiliation is removed
+notification.personRegistered=Person registered
+notification.personRegistered.description=New person registered
+notification.organizationRegistered=Organization registered
+notification.organizationRegistered.description=New organization registered
+
+graduatetraining.type.=Not Specified
+graduatetraining.type.Solicited=Solicited (Advertised)
+graduatetraining.type.Unsolicited=Unsolicited
+
+graduatetraining.degree.=Not Specified
+graduatetraining.degree.BSc=BSc
+graduatetraining.degree.MSc=MSc
+graduatetraining.degree.PhD=PhD
+graduatetraining.degree.MPhil=MPhil
+
+graduatetraining.supporttype.=Not Specified
+graduatetraining.supporttype.FULLSCHOLARSHIP=Full scholarship
+graduatetraining.supporttype.RESEARCHANDLIVINGSHOTS=Research and living costs
+graduatetraining.supporttype.RESEARCHCOSTONLY=Research cost only
+graduatetraining.supporttype.NONE=None
+
+graduatetraining.fundingtype.=Not Specified
+graduatetraining.fundingtype.Employer=Employer
+graduatetraining.fundingtype.Donor=Donor
+graduatetraining.fundingtype.Self=Self
+graduatetraining.fundingtype.Joint=Joint
+graduatetraining.fundingtype.IITACore=IITA Core
+graduatetraining.fundingtype.IITAProject=IITA Core
+
+previousTrainings.value.=Unspecified
+previousTrainings.value.YES=Yes
+previousTrainings.value.NO=No
+#
+# Entitiy names
+entity.=Everything
+entity.org.iita.crm.model.Person=Person
+entity.org.iita.crm.model.Organization=Organization
+
+alert.type.REPORT=Report
+alert.type.CHECK=Check
+alert.type.=Unspecified
+
+entity.org.iita.crm.model.Contact=Contact information
+
+person.gender.MALE=Male
+person.gender.FEMALE=Female
+person.gender.Male=Male
+person.gender.Female=Female
+person.gender.=Unspecified
+
+unsolicited.gender.Male=Male
+unsolicited.gender.Female=Female
+
+person.maritalStatus.MARRIED=Married
+person.maritalStatus.SINGLE=Single
+person.maritalStatus.Married=Married
+person.maritalStatus.Single=Single
+person.maritalStatus.Divorced=Single
+person.maritalStatus.=Unspecified
+
+person.alumniStatus.YES=Yes
+person.alumniStatus.NO=No
+person.alumniStatus.=Unspecified
+
+trainee.degree.NYSC=National Youth Service Corp
+trainee.degree.BSc=Bachelor of Science
+trainee.degree.Bsc=Bachelor of Science
+trainee.degree.MSc=Master of Science
+trainee.degree.Msc=Master of Science
+trainee.degree.PhD=Doctorate
+trainee.degree.Phd=Doctorate
+trainee.degree.RTA=RTA
+trainee.degree.MPhil=MPhil
+trainee.degree.INTERNSHIP=Internship
+trainee.degree.VisitingScientist=Visiting Scientist
+trainee.degree.Sabbatical=Sabbatical
+trainee.degree.TalentGrant=Talent Grant
+trainee.degree.Other=Other
+trainee.degree.StaffDevelopment=Staff Development
+trainee.degree.=Unspecified
+
+trainer.type.INTERNAL=IITA supervisor
+trainer.type.EXTERNAL=External supervisor
+trainer.type.=Unspecified
+
+trainer.trainingproposal.type.INTERNAL=IITA trainer
+trainer.trainingproposal.type.EXTERNAL=External trainer
+trainer.trainingproposal.type.=Unspecified
+
+grouptrainer.type.INTERNAL=IITA trainer
+grouptrainer.type.EXTERNAL=External trainer
+grouptrainer.type.=Unspecified
+
+organization.affiliation.=affiliated with
+organization.affiliation.EMPLOYEE=Employee
+organization.affiliation.MANAGER=Manager
+organization.affiliation.TRAINEE=Trainee
+organization.affiliation.CONSULTANT=Consultant
+
+partner.partnerContact.=associated with
+partner.partnerContact.UNSPECIFIED=Unspecified
+partner.partnerContact.EMPLOYEE=Employee
+partner.partnerContact.MANAGER=Manager
+partner.partnerContact.TRAINEE=Trainee
+partner.partnerContact.CONSULTANT=Consultant
+partner.partnerContact.IITA=IITA
+
+partner.hub.=Unspecified
+partner.hub.EASTERNAFRICA=Eastern Africa
+partner.hub.WESTERNAFRICA=Western Africa
+partner.hub.CENTRALAFRICA=Central Africa
+partner.hub.SOUTHERNAFRICA=Southern Africa
+
+partner.iitahub.=Unspecified
+partner.iitahub.EASTERNAFRICA=Eastern Africa
+partner.iitahub.WESTERNAFRICA=Western Africa
+partner.iitahub.CENTRALAFRICA=Central Africa
+partner.iitahub.SOUTHERNAFRICA=Southern Africa
+
+partner.partnerContact.status.ACTIVE=Active
+partner.partnerContact.status.INACTIVE=Inactive
+partner.partnerContact.status.=Unspecified
+
+partnerContact.=associated with
+partnerContact.UNSPECIFIED=UNSEPCIFIED
+partnerContact.EMPLOYEE=EMPLOYEE
+partnerContact.MANAGER=MANAGER
+partnerContact.TRAINEE=TRAINEE
+partnerContact.CONSULTANT=CONSULTANT
+
+partnerContact.status.ACTIVE=ACTIVE
+partnerContact.status.INACTIVE=INACTIVE
+
+organization.type.=Unspecified
+organization.type.CGIAR=CGIAR
+organization.type.UNIVERSITY=University
+organization.type.PRIVATE=Private sector
+organization.type.NGO=NGO
+organization.type.GOVERNMENT=Government
+
+trainingprogram.type.=Not specified
+trainingprogram.type.GROUP=Group training
+trainingprogram.type.PROGRAMRELATED=Program related training
+trainingprogram.type.NRS=NRS training
+trainingprogram.type.STAFFDEVELOPMENT=Staff development
+trainingprogram.type.NARS=NARS training
+trainingprogram.type.OTHER=Other
+
+announcement.status.Draft=Draft
+announcement.status.Published=Published
+
+# Application Status
+application.status.=Status not specified
+application.status.NEW=Pending application in draft mode
+application.status.PENDING=Application waiting for CDO screening
+application.status.WAITING=Application waiting for approval of budget holder
+application.status.WAITINGFORDIRECTOR=Application waiting for approval of program director
+application.status.WAITINGFORCDO=Application waiting for approval of CDO head
+application.status.WAITINGFORCFO=Application waiting for approval of CFO
+application.status.APPROVED=Application fully approved
+application.status.REJECTED=Rejected
+application.status.DEFERRED=Application has been deferred
+
+application.rating.EXCELLENT=Excellent
+application.rating.GOOD=Good
+application.rating.NEEDIMPROVEMENT=Need Improvement
+application.rating.WEAK=Weak
+application.rating.=Not rated
+
+application.supportTypes.=Disagreed
+application.supportTypes.true=Agreed
+application.supportTypes.false=Disagreed
+
+
+iya.classinteraction.=Not specified
+iya.classinteraction.UseCaseStudy=Use of case study
+iya.classinteraction.Energizers=Energizers
+iya.classinteraction.GroupWorkPresentation=Group work/presentation
+iya.classinteraction.Practicals=Practical
+iya.classinteraction.AudioVisuals=Use of Audio-visuals
+
+employmentHistory.empCondition.=
+employmentHistory.empCondition.Permanent=Permanent
+employmentHistory.empCondition.Temporary=Temporary
+
+
+languagespoken.language.=
+languagespoken.language.English=English
+languagespoken.language.French=French
+languagespoken.language.Portuguese=Portuguese
+languagespoken.language.Others=Others
+
+languagespoken.skills.=
+languagespoken.skills.Easily=Easily
+languagespoken.skills.NotEasily=Not Easily
+

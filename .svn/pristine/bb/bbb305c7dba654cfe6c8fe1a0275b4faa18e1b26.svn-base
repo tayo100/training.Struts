@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<bean id="searchService" class="org.iita.service.impl.SearchServiceImpl" />
+	<bean id="advancedTrainingSearchService" class="org.iita.trainingunit.service.impl.AdvancedTrainingSearchServiceImpl" scope="prototype" />
+	<bean id="iframeSearchService" class="org.iita.trainingunit.announcements.service.impl.IframeSearchServiceImpl" scope="prototype" />
+	<bean id="announcementService" class="org.iita.trainingunit.announcements.service.impl.AnnouncementServiceImpl" />	
+	<bean id="applicationSearchService" class="org.iita.trainingunit.applications.service.impl.ApplicationSearchServiceImpl" />
+	<bean id="iyaService" class="org.iita.trainingunit.iya.service.IyaServiceImpl">
+		<property name="userService" ref="userService" />
+	</bean>
+	
+	<bean id="dashboardIyaAction" class="org.iita.trainingunit.iya.action.DashboardIyaAction" scope="request">
+		<constructor-arg ref="iyaService" />
+	</bean>
+	<bean id="iyaAnnouncementAction" class="org.iita.trainingunit.iya.action.IyaAnnouncementAction" scope="request">
+		<constructor-arg ref="iyaService" />
+	</bean>
+	<bean id="iyaAnnouncementEditAction" class="org.iita.trainingunit.iya.action.IyaAnnouncementEditAction" scope="request">
+		<constructor-arg ref="iyaService" />
+	</bean>
+	<bean id="iyaRegistrationAction" class="org.iita.trainingunit.iya.action.IyaRegistrationAction" scope="request">
+		<constructor-arg ref="iyaService" />
+	</bean>
+	
+	<bean id="chartAction" scope="request" class="org.iita.trainingunit.action.ProjectChartAction" />	
+	
+	<bean id="applicationSearchAction" scope="request" class="org.iita.trainingunit.applications.action.ApplicationSearchAction">
+		<constructor-arg ref="applicationSearchService" />
+		<constructor-arg ref="xlsExportService" />
+	</bean>
+	<bean id="notificationService" class="org.iita.trainingunit.applications.service.impl.NotificationServiceImpl">
+		<constructor-arg ref="emailService" />
+		<constructor-arg ref="templatingService" />
+		<constructor-arg ref="userService" />
+	</bean>
+	<bean id="approvalService" class="org.iita.trainingunit.applications.service.impl.ApprovalServiceImpl">
+		<constructor-arg ref="notificationService" />
+		<!-- <constructor-arg ref="userService" />-->
+	</bean>
+	<bean id="announcementSearchAction" scope="request" class="org.iita.trainingunit.announcements.action.AnnouncementSearchAction">
+		<constructor-arg ref="announcementService" />
+		<!-- <constructor-arg ref="exportService" /> -->
+	</bean>	
+	<bean id="trainingUnitService" class="org.iita.trainingunit.service.impl.TrainingUnitServiceImpl">
+		<property name="documentDirectory" value="${application.dataDir}/docs" />
+		<property name="traineeStorage" value="${storage.traineeStorage}" />
+		<property name="groupStorage" value="${storage.groupStorage}" />
+		<property name="xlsImportService" ref="xlsImportService" />
+		<property name="emailService" ref="emailService" />
+		<property name="templatingService" ref="templatingService" />
+		<property name="organizationName" value="IITA" />
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="alumniService" class="org.iita.trainingunit.service.impl.AlumniServiceImpl">
+		<property name="xlsImportService" ref="xlsImportService" />
+		<property name="trainingUnitService" ref="trainingUnitService" />
+	</bean>
+	<bean id="partnerService" class="org.iita.trainingunit.service.impl.PartnerServiceImpl">
+		<property name="xlsImportService" ref="xlsImportService" />
+		<!-- <property name="trainingUnitService" ref="trainingUnitService" /> -->
+	</bean>
+	<bean id="cdoApplicationService" class="org.iita.trainingunit.applications.service.impl.CDOApplicationServiceImpl">
+		<property name="notificationService" ref="notificationService" />
+		<property name="emailService" ref="emailService" />
+		<property name="templatingService" ref="templatingService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	<!--
+	<bean id="cdoApplicationService" class="org.iita.trainingunit.applications.service.impl.CDOApplicationServiceImpl">
+		<property name="notificationService" ref="notificationService" />
+		<property name="emailService" ref="emailService" />
+		<property name="templatingService" ref="templatingService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	-->
+	<bean id="trainingProposalService" class="org.iita.trainingunit.announcements.service.impl.TrainingProposalServiceImpl" scope="request">
+		<property name="emailService" ref="emailService" />
+		<property name="templatingService" ref="templatingService" />
+	</bean>
+	
+	<bean id="advancedSearchAction" class="org.iita.trainingunit.action.AdvancedSearchAction" scope="request">
+		<constructor-arg ref="advancedTrainingSearchService" />
+		<constructor-arg ref="xlsExportService" />
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="iframeSearchAction" class="org.iita.trainingunit.announcements.action.IframeSearchAction" scope="request">
+		<constructor-arg ref="iframeSearchService" />
+	</bean>	
+	<bean id="selectionService" class="org.iita.trainingunit.service.impl.SelectionServiceImpl" scope="prototype" />
+	
+	<bean id="liferayServiceUtil" class="org.iita.trainingunit.service.impl.LiferayServiceUtil">
+		<property name="endpointStub" value="${liferay.endPointStub}" />
+		<property name="authEndpointStub" value="${liferay.authEndpointStub}" />
+	</bean>
+
+	<bean id="liferayService" class="org.iita.trainingunit.service.impl.LiferayServiceImpl">
+		<property name="templatingService" ref="templatingService" />
+		<property name="liferayServiceUtil" ref="liferayServiceUtil" />
+	</bean>
+	
+	<!-- CFO actions -->
+	<bean id="cfoAction" class="org.iita.trainingunit.applications.action.CFODefaultAction" scope="request">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="approvalService" />
+	</bean>
+	
+	<!-- CDO actions -->
+	<bean id="cdoAction" class="org.iita.trainingunit.applications.action.CDODefaultAction" scope="request">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="approvalService" />
+	</bean>
+	
+	<bean id="approveBudgetAction" class="org.iita.trainingunit.applications.action.ApproveBudgetAction" scope="request">
+		<constructor-arg ref="approvalService" />
+	</bean>
+	<bean id="approveDirectorAction" class="org.iita.trainingunit.applications.action.ApproveDirectorAction" scope="request">
+		<constructor-arg ref="approvalService" />
+	</bean>
+	
+	<bean id="dispatchApplictionAction" class="org.iita.trainingunit.applications.action.DespatchApplicationAction" scope="request">
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	<bean id="viewApplicationAction" class="org.iita.trainingunit.applications.action.ViewApplicationAction" scope="request">
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	<bean id="approvalAction" class="org.iita.trainingunit.applications.action.ApprovalAction" scope="request">
+		<!-- <constructor-arg ref="cdoApplicationService" /> -->
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="budgetCodeApplicationAction" class="org.iita.trainingunit.applications.action.BudgetCodeApplicationAction" scope="request">
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	
+	
+	<bean id="importXLSAlumniAction" class="org.iita.trainingunit.action.alumni.ImportXlsAlumniAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="alumniService" />
+	</bean>
+	<bean id="importXLSPartnerAction" class="org.iita.trainingunit.action.partner.ImportXlsPartnerAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="partnerService" />
+	</bean>
+	<bean id="searchAlumniAction" class="org.iita.trainingunit.action.alumni.SearchAlumniAction" scope="request">
+		<constructor-arg ref="alumniService" />
+		<constructor-arg ref="queryService" />
+	</bean>
+	<bean id="searchPartnerAction" class="org.iita.trainingunit.action.partner.SearchPartnerAction" scope="request">
+		<constructor-arg ref="partnerService" />
+		<constructor-arg ref="queryService" />
+		<property name="templatingService" ref="templatingService" />
+	</bean>
+	<bean id="alumniAction" scope="request" class="org.iita.trainingunit.action.alumni.AlumniAction">
+		<constructor-arg ref="alumniService" />
+	</bean>
+	<bean id="partnerAction" scope="request" class="org.iita.trainingunit.action.partner.PartnerAction">
+		<constructor-arg ref="partnerService" />
+	</bean>
+	
+	<bean id="cdoAnnouncementAction" scope="request" class="org.iita.trainingunit.announcements.action.AnnouncementAction">
+		<constructor-arg ref="announcementService" />
+	</bean>
+	
+	<bean id="publicAnnouncementAction" scope="request" class="org.iita.trainingunit.announcements.action.PublicAnnouncementAction">
+		<constructor-arg ref="announcementService" />
+	</bean>
+	<bean id="applicantAnnouncementAction" scope="request" class="org.iita.trainingunit.announcements.action.ApplicantAnnouncementAction">
+		<constructor-arg ref="announcementService" />
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	<bean id="publicProjectAnnouncementAction" scope="request" class="org.iita.trainingunit.announcements.action.PublicProjectAnnouncementAction">
+		<constructor-arg ref="trainingProposalService" />
+	</bean>
+	<bean id="cdoApplicationAction" scope="request" class="org.iita.trainingunit.applications.action.CDOApplicationAction">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="announcementService" />
+		<constructor-arg ref="approvalService" />
+	</bean>
+	
+	<bean id="cdoApplicationProcessAction" scope="request" class="org.iita.trainingunit.applications.action.CDOApplicationProcessAction">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="approvalService" />
+	</bean>
+	
+	<bean id="cdoBiodataProcessAction" scope="request" class="org.iita.trainingunit.applications.action.CDOBiodataProcessAction">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="announcementService" />
+		<property name="passportStorage" value="${storage.passportStorage}" />
+		<property name="applicationUrl" value="${application.url}" />
+		<property name="roleService" ref="userRoleService" />
+		<property name="lookupService" ref="userLookupService" />
+	</bean>
+	
+	<bean id="cdoBiodataAction" scope="request" class="org.iita.trainingunit.applications.action.CDOBiodataAction">
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	
+	<bean id="cdoTrainingProposalAction" scope="request" class="org.iita.trainingunit.announcements.action.TrainingProposalAction">
+		<constructor-arg ref="trainingProposalService" />
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="dashboardActionApplicant" scope="request" class="org.iita.trainingunit.action.DashboardActionApplicant">
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="announcementService" />
+	</bean>
+	
+	<bean id="traineeListAction" scope="request" class="org.iita.trainingunit.action.TraineeListAction">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="xlsExportService" />
+		<property name="selectionService" ref="selectionService" />
+	</bean>
+	<bean id="partnerListAction" scope="request" class="org.iita.trainingunit.action.PartnerListAction">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="xlsExportService" />
+		<property name="selectionService" ref="selectionService" />
+	</bean>
+
+	<bean id="trainingProgramListAction" scope="request" class="org.iita.trainingunit.action.ProgramListAction">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="xlsExportService" />
+		<property name="selectionService" ref="selectionService" />
+	</bean>
+
+	<bean id="dashboardAction" class="org.iita.trainingunit.action.DashboardAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="cdoApplicationService" />
+		<constructor-arg ref="userService" />
+	</bean>
+	<bean id="dashboardActionUser" class="org.iita.trainingunit.action.DashboardActionUser" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="alumniService" />
+		<constructor-arg ref="userService" />
+	</bean>
+
+	<bean id="addPersonAction" class="org.iita.crm.action.AddPersonAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="addAlertAction" class="org.iita.trainingunit.action.AlertAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addTagsAction" class="org.iita.trainingunit.action.TagsAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="announcementService" />
+		<constructor-arg ref="cdoApplicationService" />
+	</bean>
+	
+	<bean id="addTraineeAction" class="org.iita.trainingunit.action.TraineeAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="traineeFilesAction" class="org.iita.trainingunit.action.TraineeFilesAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addTrainerAction" class="org.iita.trainingunit.action.TrainerAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addFunderAction" class="org.iita.trainingunit.action.FundingAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addTraineeEducationalinfoAction" class="org.iita.trainingunit.action.AddTraineeEducationalInfoAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="personProfileAction" class="org.iita.trainingunit.action.PersonProfileAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="alumniService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="personDocumentAction" class="org.iita.crm.action.PersonDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="partnerDocumentAction" class="org.iita.crm.action.PartnerDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="announcementDocumentAction" class="org.iita.crm.action.AnnouncementDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="trainingProposalDocumentAction" class="org.iita.crm.action.TrainingProposalDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="applicationDocumentAction" class="org.iita.crm.action.ApplicationDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	<bean id="applicationReportDocumentAction" class="org.iita.crm.action.ApplicationReportDocumentAction" scope="request">
+		<property name="documentService" ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="traineeProfileAction" class="org.iita.trainingunit.action.TraineeProfileAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<property name="selectionService" ref="selectionService" />
+		<property name="alumniService" ref="alumniService" />
+	</bean>
+
+	<bean id="updateContactAction" class="org.iita.crm.action.UpdateContactAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="updateAffiliationAction" class="org.iita.crm.action.AffiliationAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateClassificationAction" class="org.iita.crm.action.ClassificationAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateCategoryAction" class="org.iita.crm.action.CategoryAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateMandateCropAction" class="org.iita.crm.action.MandateCropAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateCoreBusinessAction" class="org.iita.crm.action.CoreBusinessAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateCoreBusinessCategoryAction" class="org.iita.crm.action.CoreBusinessCategoryAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateSectorAction" class="org.iita.crm.action.PartnerSectorAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+		<bean id="updateSubsectorAction" class="org.iita.crm.action.PartnerSubsectorAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateScaleAction" class="org.iita.crm.action.PartnerScaleAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="updateIitaHubAction" class="org.iita.crm.action.IitaHubAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="updatePartnerPersonContactAction" class="org.iita.crm.action.PartnerPersonContactAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="organizationProfileAction" class="org.iita.trainingunit.action.OrganizationProfileAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addOrganizationAction" class="org.iita.crm.action.AddOrganizationAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="partnerProfileAction" class="org.iita.trainingunit.action.PartnerProfileAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="addPartnerAction" class="org.iita.crm.action.AddPartnerAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="trainingProgramProfileAction" class="org.iita.trainingunit.action.TrainingProgramProfileAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<property name="selectionService" ref="selectionService" />
+		<property name="liferayService" ref="liferayService" />
+	</bean>
+
+	<bean id="addTrainingProgramAction" class="org.iita.trainingunit.action.AddTrainingProgramAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<!-- 
+	<bean id="agreementListAction" class="org.iita.promis.action.AgreementListAction" scope="request">
+		<constructor-arg ref="promisCRMService" />
+
+	</bean> -->
+	<bean id="trainingProgramFilesAction" class="org.iita.trainingunit.action.GroupFilesAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+
+	<bean id="calendarAction" class="org.iita.trainingunit.action.CalendarAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="searchAction" class="org.iita.crm.action.SearchAction" scope="request">
+		<constructor-arg ref="searchService" />
+	</bean>
+
+	<bean id="publicAjaxAction" class="org.iita.crm.action.PublicAjaxAction" scope="prototype">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="privateAjaxAction" class="org.iita.trainingunit.action.PrivateAjaxAction" scope="prototype">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<!-- Ajax -->
+	<bean id="userAjaxAction" class="org.iita.trainingunit.action.UserAjaxAutocomplete" scope="request">
+		<constructor-arg ref="userService" />
+	</bean>
+
+
+	<bean id="mergeAction" class="org.iita.trainingunit.action.MergeAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="documentAction" class="org.iita.crm.action.DocumentAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="downloadDocumentAction" class="org.iita.crm.action.DownloadDocumentAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<bean id="downloadXLSAction" class="org.iita.trainingunit.action.DownloadXlsTemplateAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="downloadAlumniXLSAction" class="org.iita.trainingunit.action.DownloadAlumniXlsTemplateAction" scope="request">
+		<constructor-arg ref="alumniService" />
+		<constructor-arg ref="xlsExportService" />
+	</bean>
+	
+	<bean id="downloadPartnerXLSAction" class="org.iita.trainingunit.action.DownloadPartnerXlsTemplateAction" scope="request">
+		<constructor-arg ref="partnerService" />
+		<constructor-arg ref="xlsExportService" />
+	</bean>
+	
+	<!-- Selection -->
+	<bean id="selectionAction" class="org.iita.trainingunit.action.SelectionAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+		<constructor-arg ref="selectionService" />
+		<constructor-arg ref="xlsExportService" />
+	</bean>
+	
+	
+	<bean id="tagAction" class="org.iita.trainingunit.action.TrainingUnitTagAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<!-- 
+	<bean id="projectTagBuilderAction" class="org.iita.promis.action.ProjectTagBuilderAction" scope="request">
+		<constructor-arg ref="promisCRMService" />
+	</bean> -->
+	<bean id="traineeTagBuilderAction" class="org.iita.trainingunit.action.TraineeTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="trainingProgramTagBuilderAction" class="org.iita.trainingunit.action.TrainingProgramTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="organizationTagBuilderAction" class="org.iita.crm.action.OrganizationTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	<bean id="partnerTagBuilderAction" class="org.iita.crm.action.PartnerTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="announcementTagBuilderAction" class="org.iita.crm.action.AnnouncementTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+	<bean id="applicationTagBuilderAction" class="org.iita.crm.action.ApplicationTagBuilderAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+
+	<!--Liferay WebServices  -->
+	<!--
+		<bean id="journalArticleServiceSoap" class="org.springframework.remoting.jaxrpc.JaxRpcPortProxyFactoryBean"> <property name="serviceInterface"
+		value="com.liferay.client.soap.portlet.journal.service.http.JournalArticleServiceSoap" /> <property name="wsdlDocumentUrl"
+		value="http://liferay.iita.cgiarad.org:8080/tunnel-web/axis/Portlet_Journal_JournalArticleService?wsdl" /> <property name="namespaceUri"
+		value="urn:http.service.journal.portlet.liferay.com" /> <property name="serviceName" value="JournalArticleServiceSoapService" /> <property name="portName"
+		value="Portlet_Journal_JournalArticleService" /> </bean>
+	-->
+
+	<bean id="tagBrowserAction" class="org.iita.crm.action.TagBrowserAction" scope="request">
+		<constructor-arg ref="trainingUnitService" />
+	</bean>
+	
+</beans>

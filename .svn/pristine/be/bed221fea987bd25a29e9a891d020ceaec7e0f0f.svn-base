@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Project financials</title>
+</head>
+<body>
+<h1>Project financials</h1>
+<p>Project <b>Financials</b> tab lists project financial information:</p>
+<ul>
+	<li>Project life budget</li>
+	<li>Amount paid to partners</li>
+	<li>Amount remaining after paying all partners</li>
+	<li>List of project cost centers</li>
+	<li>Donors with their contribution</li>
+	<li>Partners with their receivables</li>
+	<li>Financing details (installments)</li>
+</ul>
+</body>
+</html>

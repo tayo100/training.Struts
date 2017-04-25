@@ -1,0 +1,2 @@
+<%@ include file="/common/taglibs.jsp"%>
+<a href="<s:url action="partner/profile"/>?id=<s:property value="id" />"><s:if test="shortName!=null"><s:property value="shortName" /></s:if><s:else><s:property value="title" /></s:else></a>

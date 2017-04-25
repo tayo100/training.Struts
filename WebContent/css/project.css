@@ -1,0 +1,131 @@
+
+ul.taglist {
+	float: left;
+}
+
+ul.taglist > li {
+	padding: 0;
+	width: 390px;
+	float: left;
+}
+
+input.autocompleted {
+	background-color: #FFF9DF;
+}
+
+.contact {
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	padding-left: 24px;
+}
+
+div.contact.address {
+	background-image: url('../img/house.png');	
+}
+
+.contact.email {
+	background-image: url('../img/mail.png');
+}
+
+div.contact.phone {
+	background-image: url('../img/phone2.png');
+}
+
+div.contact.mobile {
+	background-image: url('../img/phone.png');
+}
+
+div.contact.website {
+	background-image: url('../img/web.png');
+}
+
+div.contact.fax {
+	background-image: url('../img/fax.png');
+}
+
+div.contact.bankaccount {
+	background-image: url('../img/money.png');
+}
+
+div.contact.inactive {
+	opacity: 0.5;
+	background-image: url('../img/disabled.png'); 
+}
+
+
+div.person {
+
+}
+
+div.person.quick {
+	margin: 10px 0;
+}
+
+span.person.small {
+	background-image: url('../img/person.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	padding-left: 20px;
+}
+
+span.person.small.FEMALE {
+	background-image: url('../img/female.png');	
+}
+
+div.trainee.quick, div.trainer.quick, div.program.quick, div.alert.quick {
+	margin: 20px 0;
+}
+
+div.trainee.quick h3, div.trainer.quick h3, div.program.quick h3, div.alert.quick h3 {
+	margin: 0 0 10px 0;
+}
+
+.expired, .expired *, .expired a:visited, .expired a:active {
+	color: #9F5600;
+}
+
+div.merge-info { 
+
+}
+
+div.merge-tools {
+	margin: 5px 0 2px 0px;
+	background-color: #e0e0e0;
+	padding: 4px 10px;
+}
+ 
+div.merge-tools a {
+	cursor: pointer;
+	padding-right: 20px;
+	background-position: top right;
+	background-repeat: no-repeat;
+	background-image: url("../img/1rightarrow.png");
+	text-decoration: none;
+	border-bottom: none;
+}
+
+#right-entity div.merge-tools a {
+	padding-left: 20px;
+	background-position: 0 0;
+	background-image: url("../img/1leftarrow.png");	
+}
+
+.tag.readonly {
+	display: inline; margin: 3px 5px;
+}
+.tag.relevance5 { font-size: 24px; }
+.tag.relevance4 { font-size: 20px; }
+.tag.relevance3 { font-size: 16px; }
+.tag.relevance2 { font-size: 13px; }
+
+tr.report > td.DELIVERED { background-repeat: no-repeat; background-image: url(../img/clean.png); background-position: 2px 2px; padding-left: 22px; }
+tr.report > td.CANCELED { background-repeat: no-repeat; background-image: url(../img/disabled.png); background-position: 2px 2px; padding-left: 22px; }
+
+
+div.note { width: 200px; float: left; margin: 3px; padding: 5px; background-color: Yellow; border: solid 1px Black; background-image: url(../img/note-flip.gif); background-position: top right; background-repeat: no-repeat; }
+div.note div.note-text { max-height: 5.6em; overflow: hidden; }
+div.note div.note-text:hover { max-height: 100%; overflow: auto; }
+div.note > div.note-info { font-size: 10px; margin: 3px; color: #303030; }
+
+div.notice, div.yearselect { margin: 10px; padding: 5px 10px; border: solid 1px Black; background-color: #e3d0a2; }
+div.notice p, div.yearselect p { margin: 2px 0px 2px 0px; }

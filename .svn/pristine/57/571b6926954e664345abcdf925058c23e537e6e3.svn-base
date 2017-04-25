@@ -1,0 +1,1374 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- User access to Training Unit -->
+	<package namespace="/u" name="users-browsing" extends="default">
+		<action name="index" class="dashboardActionUser">
+			<result>/WEB-INF/jsp/index-user.jsp</result>
+		</action>
+	</package>
+	
+	<package namespace="/iya" name="agripreneur-browsing" extends="default">
+		
+		<action name="index" class="dashboardIyaAction">
+			<result>/WEB-INF/jsp/iya/index.jsp</result>
+		</action>
+		
+		<action name="save-announcement" class="iyaAnnouncementAction" method="saveAnnouncement">
+			<result name="error">/WEB-INF/jsp/iya/announcement.jsp</result>
+			<result name="success" type="redirect-action">index</result>
+		</action>		
+		<action name="announcement" class="iyaAnnouncementAction" method="input">
+			<result name="input">/WEB-INF/jsp/iya/announcement.jsp</result>
+			<result name="success" type="redirect-action">index</result>
+		</action>
+		<action name="announcements" class="iyaAnnouncementAction">
+			<result name="success">/WEB-INF/jsp/iya/announcementslisting.jsp</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>		
+		<action name="announcement/view" class="iyaAnnouncementAction" method="details">
+			<result name="success">/WEB-INF/jsp/iya/announcement_details.jsp</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="announcement/edit" class="iyaAnnouncementAction" method="input">
+			<result name="input">/WEB-INF/jsp/iya/announcement_edit.jsp</result>
+			<result name="error" type="redirect-action">index</result>
+			<result name="success" type="redirect-action">announcements</result>
+		</action>
+		
+		<action name="announcement/save-edit" class="iyaAnnouncementEditAction" method="edit">
+			<result name="input">/WEB-INF/jsp/iya/announcement_edit.jsp</result>
+			<result name="error" type="redirect-action">index</result>
+			<result name="success" type="redirect-action">announcements</result>
+		</action>
+	</package>
+	
+	<package namespace="/applicant" name="applicant-browsing" extends="default">
+		<action name="index" class="dashboardActionApplicant">
+			<result name="success">/WEB-INF/jsp/applicant/index.jsp</result>
+			<result name="biodata" type="redirect-action">biodata-update</result>
+			<result name="continue" type="redirect-action">pending?appKey=${appStarter.appKey}</result>
+		</action>
+		
+		<action name="announcementdetail" class="applicantAnnouncementAction">
+			<result>/WEB-INF/jsp/public/application/announcementdetail.jsp</result>
+		</action>
+		
+		<action name="register" class="cdoApplicationAction" method="proceedRegister">
+			<result name="group">/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+			<result name="graduate">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="internship">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+			<result name="nongraduate">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="individual">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="inhousegroup">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="staffdevelopment">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="sabbatical">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			
+			<result name="other">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="input" type="redirect-action">index</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="pending" class="cdoBiodataProcessAction" method="continueRegistration">
+			<result name="group">/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+			<result name="graduate">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="nongraduate">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="individual">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="inhousegroup">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="staffdevelopment">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="sabbatical">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			<result name="other">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="input" type="redirect-action">index</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="draft" class="cdoApplicationAction" method="proceedRegister">
+			<result name="group">/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+			<result name="graduate">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="internship">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+			<result name="nongraduate">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="individual">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="inhousegroup">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="staffdevelopment">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="sabbatical">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			<result name="other">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="input" type="redirect-action">index</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="appdetails" class="cdoApplicationAction" method="applicationDetails">
+			<result name="group">/WEB-INF/jsp/application/group-details.jsp</result>
+			<result name="graduate">/WEB-INF/jsp/application/graduate-details.jsp</result>
+			<result name="nondegree">/WEB-INF/jsp/application/nondegree-details.jsp</result>
+			<result name="other">/WEB-INF/jsp/application/other-details.jsp</result>
+			<result name="individual">/WEB-INF/jsp/application/individual-details.jsp</result>
+			<result name="sabbatical">/WEB-INF/jsp/application/sabbatical-details.jsp</result>
+			<result name="inhousegroup">/WEB-INF/jsp/application/inhouse-details.jsp</result>
+			<result name="staffdevelopment">/WEB-INF/jsp/application/staffdev-details.jsp</result>
+		</action>
+		
+		<action name="list" class="cdoApplicationAction" method="applicationList">
+			<result name="success">/WEB-INF/jsp/include/applicationlisting.jsp</result>
+		</action>
+		
+		<action name="process-register" class="cdoApplicationAction" method="doRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+		</action>
+		<action name="draft-register" class="cdoApplicationAction" method="doDraft">
+			<result>/WEB-INF/jsp/applicant/cdoreg-form.jsp</result>
+		</action>
+		<action name="process-graduate" class="cdoApplicationAction" method="doGraduateRegister">
+			<result name="submitted">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="success">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+		</action>
+		<action name="draft-graduate" class="cdoApplicationAction" method="doGraduateDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdograduatereg-form.jsp</result>
+		</action>
+		
+		<action name="process-internship" class="cdoApplicationAction" method="doInternshipRegister">
+			<result name="submitted">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="success">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+		</action>
+		<action name="draft-internship" class="cdoApplicationAction" method="doInternshipDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdointernshipreg-form.jsp</result>
+		</action>
+		
+		<action name="process-nondegree" class="cdoApplicationAction" method="doNonDegreeRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+		</action>
+		<action name="draft-nondegree" class="cdoApplicationAction" method="doNonDegreeDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdonondegreereg-form.jsp</result>
+		</action>
+		<action name="process-other" class="cdoApplicationAction" method="doOtherRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdoreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+		</action>
+		<action name="draft-other" class="cdoApplicationAction" method="doOtherDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdootherreg-form.jsp</result>
+		</action>
+		
+		<action name="process-individual" class="cdoApplicationAction" method="doIndividualRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdoindividualreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+		</action>
+		<action name="draft-individual" class="cdoApplicationAction" method="doIndividualDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdoindividualreg-form.jsp</result>
+		</action>
+		
+		<action name="process-inhouse" class="cdoApplicationAction" method="doInhouseRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdoinhousereg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+		</action>
+		<action name="draft-inhouse" class="cdoApplicationAction" method="doInhouseDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdoinhousereg-form.jsp</result>
+		</action>
+		
+		<action name="process-staffdev" class="cdoApplicationAction" method="doStaffDevelopmentRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdostaffdevreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+		</action>
+		<action name="draft-staffdev" class="cdoApplicationAction" method="doStaffDevelopmentDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdostaffdevreg-form.jsp</result>
+		</action>
+		
+		<action name="process-sabbatical" class="cdoApplicationAction" method="doSabbaticalRegister">
+			<result name="success">/WEB-INF/jsp/applicant/cdosabbaticalreg-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdosabaticalreg-form.jsp</result>
+		</action>
+		<action name="draft-sabbatical" class="cdoApplicationAction" method="doSabbaticalDraft">
+			<result name="success">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdosabbaticalreg-form.jsp</result>
+		</action>
+		
+		<action name="uploadpassport" class="cdoBiodataProcessAction" method="myPassport">
+			<interceptor-ref name="fileUpload">
+		        <param name="maximumSize">2097152</param>
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+			<result type="redirect-action">index</result>
+		</action>
+		
+		<action name="applicant-document" class="applicationDocumentAction">
+			<result type="redirect-action">draft?applicationId=${entityDocument.entity.id}</result>
+		</action>
+		
+		<action name="applicationreport-document-details" class="applicationReportDocumentAction">
+			<result type="redirect-action">appdetails?applicationId=${entityDocument.entity.id}</result>
+		</action>
+		
+		<action name="application-document-details" class="applicationDocumentAction">
+			<result type="redirect-action">appdetails?applicationId=${entityDocument.entity.id}</result>
+		</action>
+		<action name="application-document" class="applicationDocumentAction">
+			<result type="redirect-action">draft?applicationId=${entityDocument.entity.id}&amp;announcementId=${entityDocument.entity.announcement.id}</result>
+		</action>
+		
+		<action name="biodata-update" class="cdoBiodataAction">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/applicant/cdobiodata-update-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/cdobiodata-update-form.jsp</result>
+		</action>
+		
+		<action name="password-update" class="cdoBiodataAction">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/applicant/password-update-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/applicant/password-update-form.jsp</result>
+		</action>
+	</package>
+	
+	<package namespace="/iframe" name="all-public" extends="default">
+		<action name="index" class="publicAnnouncementAction">			
+			<result>/WEB-INF/jsp/public/iframe/index.jsp</result>
+		</action>
+		<action name="search" class="iframeSearchAction" method="execute">			
+			<result>/WEB-INF/jsp/public/announcement/index.jsp</result>
+		</action>
+		<action name="fulldetail" class="publicAnnouncementAction">
+			<result type="redirect-action">
+				<param name="actionName">fulldetail?id=${announcement.id}</param>
+				<param name="namespace">/application</param>
+			</result>
+		</action>
+		<action name="announcementdetail" class="applicantAnnouncementAction">
+			<result type="redirect-action">
+				<param name="actionName">announcementdetail</param>
+				<param name="namespace">/applicant</param>
+			</result>
+		</action>
+	</package>
+	
+	<package namespace="/application" name="public-browsing" extends="default">
+		<action name="index" class="publicAnnouncementAction">
+			<result>/WEB-INF/jsp/public/application/index.jsp</result>
+		</action>
+				
+		<action name="usindex">
+			<result>/WEB-INF/jsp/public/application/usindex.jsp</result>
+		</action>
+				
+		<action name="fulldetail" class="publicAnnouncementAction">
+			<result>/WEB-INF/jsp/public/application/announcementdetail.jsp</result>
+		</action>
+		
+		<action name="projtrainingdetail" class="publicProjectAnnouncementAction">
+			<result>/WEB-INF/jsp/public/application/projectrainingdetail.jsp</result>
+		</action>
+		
+		<action name="continue-register" class="cdoBiodataProcessAction" method="continueRegistration">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+		</action>
+		
+		<action name="incomplete" class="cdoBiodataProcessAction" method="execute">
+			<result>/WEB-INF/jsp/public/application/bioreg-navigator.jsp</result>
+		</action>
+		
+		<action name="resume" class="cdoBiodataProcessAction" method="incompleteRegistration">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/bioreg-navigator.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/bioreg-navigator.jsp</result>
+		</action>
+		
+		<action name="staffreg" class="cdoBiodataProcessAction" method="staffRegistration">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/staff-navigator.jsp</result>
+		</action>
+				
+		<action name="register" class="cdoBiodataProcessAction" method="proceedRegister">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="errorGoBack" type="redirect-action">index</result>
+		</action>
+		
+		<action name="process-register" class="cdoBiodataProcessAction" method="doRegister">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-confirm.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+		</action>
+		
+		<action name="savedraft" class="cdoBiodataProcessAction" method="saveDraft">
+			<result name="success">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+		</action>
+		
+		<action name="bio-delete" class="cdoBiodataProcessAction" method="delete">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/public/application/cdobiodata-form.jsp</result>
+		</action>
+	</package>
+	
+	<package namespace="/announcement" name="restricted-browsing" extends="default">		
+		<action name="cdoindex" class="cdoAnnouncementAction">
+			<result>/WEB-INF/jsp/announcement/cdoannounce.jsp</result>
+		</action>
+		
+		<action name="application-list" class="cdoApplicationAction" method="applicationList">
+			<result name="success">/WEB-INF/jsp/include/applicationlisting.jsp</result>
+		</action>
+		
+		<action name="application-process" class="cdoApplicationProcessAction" method="execute">
+			<result name="success">/WEB-INF/jsp/review/include/application-review.jsp</result>
+		</action>
+		
+		<action name="cdointernalProcess" class="cdoApplicationProcessAction">
+			<result name="success" type="redirect-action">application-process?applicationId=${applicationId}</result>
+			<result name="error">/WEB-INF/jsp/review/include/application-review.jsp</result>
+		</action>
+		
+		<action name="trainingproposaldelete" class="cdoTrainingProposalAction" method="delete">
+			<result name="success" type="redirect-action">trainingproposal</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal.jsp</result>
+		</action>
+		
+		<action name="deleteannouncement" class="cdoAnnouncementAction" method="delete">
+			<result name="success" type="redirect-action">cdoindex</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdoannouncement-detail.jsp</result>
+		</action>
+		
+		<action name="save-proposal" class="cdoTrainingProposalAction" method="save">
+			<result>/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		<action name="trainingproposaledit-document" class="trainingProposalDocumentAction">
+			<result type="redirect-action">proposaleditdata?id=${entityDocument.entity.id}</result>
+		</action>
+		
+		<action name="add-trainer" class="addTrainerAction">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}</result>
+			<result name="program" type="redirect-action">program/profile?id=${trainingProgram.id}</result>
+			<result name="trainingproposal" type="redirect-action">proposaleditdata?id=${trainingProposal.id}</result>
+			<result name="announcement" type="redirect-action">profile?id=${announcement.id}</result>
+		</action>
+		
+		<action name="trainingproposal" class="cdoTrainingProposalAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdotrainingproposal.jsp</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdotrainingproposal.jsp</result>
+		</action>
+		
+		<action name="convert-proposal" class="cdoTrainingProposalAction" method="makeAnnouncement">
+			<result name="success" type="redirect-action">trainingproposal?id=${trainingProposal.id}</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="reject-proposal" class="cdoTrainingProposalAction" method="rejectTrainingProposal">
+			<result name="success" type="redirect-action">trainingproposal?id=${trainingProposal.id}</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="submit-proposal" class="cdoTrainingProposalAction" method="submit">
+			<result name="success" type="redirect-action">trainingproposal?id=${trainingProposal.id}</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="trainingproposal/profile" class="cdoTrainingProposalAction">
+			<result>/WEB-INF/jsp/announcement/cdotrainingproposal.jsp</result>
+		</action>
+		<action name="trainingproposal-details" class="cdoTrainingProposalAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdotrainingproposal-details.jsp</result>
+		</action>
+		
+		<action name="trainingproposal-copy" class="cdoTrainingProposalAction" method="copy">
+			<result name="success" type="redirect-action">proposaleditdata?id=${trainingProposal.id}</result>
+		</action>
+		
+		<action name="trainingproposal-document" class="trainingProposalDocumentAction">
+			<result type="redirect-action">trainingproposal/profile?id=${entityDocument.entity.id}</result>
+		</action>
+		
+		<action name="announcement/profile" class="cdoAnnouncementAction">
+			<result>/WEB-INF/jsp/announcement/annnouncementprofile.jsp</result>
+		</action>
+		
+		<action name="proposaleditdata" class="cdoTrainingProposalAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="proposaldetails" class="cdoTrainingProposalAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="new-announcement" class="cdoAnnouncementAction" method="newAnnouncement">
+			<result>/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+		</action>
+		
+		<action name="new-training" class="cdoTrainingProposalAction" method="newTrainingProposal">
+			<result>/WEB-INF/jsp/announcement/cdotrainingproposal-form.jsp</result>
+		</action>
+		
+		<action name="search/materials" >
+			<result>/WEB-INF/jsp/advanced/documentsearch.jsp</result>
+		</action>
+		
+		<action name="search-announcements" class="announcementSearchAction"  method="execute">
+			<result>/WEB-INF/jsp/announcement/announcement-search.jsp</result>
+			<result name="error" type="redirect-action">search-announcements</result>
+		</action>
+		
+		<action name="search-applications" class="applicationSearchAction"  method="execute">
+			<result>/WEB-INF/jsp/application/application-search.jsp</result>
+			<result name="error" type="redirect-action">search-applications</result>
+		</action>
+
+		<action name="save" class="cdoAnnouncementAction" method="save">
+			<result name="success" type="redirect-action">profile?id=${announcement.id}</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+		</action>
+		
+		<action name="profile" class="cdoAnnouncementAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdoannouncement-detail.jsp</result>
+		</action>
+		
+		<action name="doupdate" class="cdoAnnouncementAction">
+			<result name="success">/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+		</action>
+		
+		<action name="update" class="cdoAnnouncementAction" method="save">
+			<result name="success" type="redirect-action">profile</result>
+			<result name="error">/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/announcement/cdoannouncement-form.jsp</result>
+		</action>
+				
+		<action name="announcement-document" class="announcementDocumentAction">
+			<result type="redirect-action">profile?id=${entityDocument.entity.id}</result>
+		</action>
+		
+		<action name="tags" class="announcementTagBuilderAction">
+			<result name="reload" type="redirect-action">announcement/profile?id=${profile.id}</result>
+		</action>
+	</package>
+<!-- 
+    <package name="jfcdefault" namespace="/" extends="jfreechart-default">
+		
+		<action name="displayStrutsBarChart" class="chartAction">
+			<result name="success" type="chart">
+				<param name="value">chartBar</param>
+				<param name="type">png</param>
+				<param name="width">600</param>
+				<param name="height">400</param>
+			</result>
+		</action>
+		
+		<action name="displayStrutsChart" class="chartAction">
+			<result name="success" type="chart">
+				<param name="value">chart</param>
+				<param name="type">png</param>
+				<param name="width">600</param>
+				<param name="height">400</param>
+			</result>
+		</action>
+	</package>
+ -->
+ <!-- CFO Package -->
+	<package name="project-cfo" namespace="/cfo" extends="default">
+		<!-- Cashier's section -->
+		<action name="index" class="cfoAction" method="execute">
+			<result>/WEB-INF/jsp/cfo/list.jsp</result>
+		</action>
+		<action name="pending" class="cfoAction" method="viewpending">
+			<result>/WEB-INF/jsp/cfo/list.jsp</result>
+		</action>
+		<action name="review" class="cfoAction" method="reviewTa">
+			<result name="success">/WEB-INF/jsp/cfo/review-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/cfo/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/cfo/list.jsp</result>
+		</action>
+		<action name="approve" class="cfoAction" method="approve">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/cfo/review-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/cfo/review-form.jsp</result>
+		</action>
+		<!-- Reject status updates -->
+		<action name="reject" class="cfoAction" method="reject">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/cfo/review-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/cfo/review-form.jsp</result>
+		</action>
+		<action name="view" class="dispatchApplictionAction">
+			<result name="editable" type="redirect-action">../edit?id=${application.id}</result>
+			<result name="readonly" type="redirect-action">../readonly?id=${application.id}</result>
+			<result name="cfo" type="redirect-action">review?id=${application.id}</result>
+			<result name="director" type="redirect-action">../review/show?id=${application.id}</result>
+			<result name="budget" type="redirect-action">../review/show?id=${application.id}</result>
+			<result name="error">/WEB-INF/jsp/generic-error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- CFO Package -->
+	<package name="project-cdo" namespace="/cdo" extends="default">
+		<!-- Cashier's section -->
+		<action name="index" class="cdoAction" method="execute">
+			<result>/WEB-INF/jsp/cdo/list.jsp</result>
+		</action>
+		<action name="pending" class="cdoAction" method="viewpending">
+			<result>/WEB-INF/jsp/cdo/list.jsp</result>
+		</action>
+		<action name="review" class="cdoAction" method="reviewApplication">
+			<result name="success">/WEB-INF/jsp/cdo/review-form.jsp</result>
+			<result name="error">/WEB-INF/jsp/cdo/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/cdo/list.jsp</result>
+		</action>
+		<action name="approve" class="cdoAction" method="approve">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/cdo/review-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/cdo/review-form.jsp</result>
+		</action>
+		<!-- Reject status updates -->
+		<action name="reject" class="cfoAction" method="reject">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/cdo/review-form.jsp</result>
+			<result name="input">/WEB-INF/jsp/cdo/review-form.jsp</result>
+		</action>
+		<action name="view" class="dispatchApplictionAction">
+			<result name="editable" type="redirect-action">../edit?id=${application.id}</result>
+			<result name="readonly" type="redirect-action">../readonly?id=${application.id}</result>
+			<result name="cdo" type="redirect-action">review?id=${application.id}</result>
+			<result name="director" type="redirect-action">../review/show?id=${application.id}</result>
+			<result name="budget" type="redirect-action">../review/show?id=${application.id}</result>
+			<result name="error">/WEB-INF/jsp/generic-error.jsp</result>
+		</action>
+	</package>
+	
+	<!-- Project specific actions -->
+	<package name="project-default" extends="default">		
+		<action name="index" class="dashboardAction">
+			<result name="user" type="redirect-action">
+				<param name="actionName">index</param>
+				<param name="namespace">/u</param>
+			</result>
+			<result name="applicant" type="redirect-action">
+				<param name="actionName">index</param>
+				<param name="namespace">/applicant</param>
+			</result>
+			<result>/WEB-INF/jsp/index.jsp</result>
+		</action>
+		
+		<action name="readonly" class="viewApplicationAction">
+			<!-- <result>/WEB-INF/jsp/request/view-application-details.jsp</result> -->
+			<result>/WEB-INF/jsp/review/include/application-review.jsp</result>
+			<result name="error">/WEB-INF/jsp/generic-error.jsp</result>
+		</action>
+		
+		<!-- Index form remapping -->
+		<action name="person-register" class="dashboardAction" method="regPerson">	
+			<result name="regPerson">/WEB-INF/jsp/indexforms/reg-person.jsp</result>
+		</action>
+		<action name="person-updated" class="dashboardAction" method="regPerson">	
+			<result name="regPerson">/WEB-INF/jsp/indexforms/reg-person.jsp</result>
+		</action>		
+		<action name="trainee-register" class="dashboardAction" method="regTrainee">	
+			<result name="regTrainee">/WEB-INF/jsp/indexforms/reg-trainee.jsp</result>
+		</action>
+		<action name="trainee-updated" class="dashboardAction" method="regTrainee">	
+			<result name="regTrainee">/WEB-INF/jsp/indexforms/reg-trainee.jsp</result>
+		</action>
+		<action name="trainingprogram-register" class="dashboardAction" method="regTrainingProgram">	
+			<result name="regTrainingProgram">/WEB-INF/jsp/indexforms/reg-trainingprogram.jsp</result>
+		</action>
+		<action name="trainingprogram-updated" class="dashboardAction" method="regTrainingProgram">	
+			<result name="regTrainingProgram">/WEB-INF/jsp/indexforms/reg-trainingprogram.jsp</result>
+		</action>
+		<action name="organization-register" class="dashboardAction" method="regOrganization">	
+			<result name="regOrganization">/WEB-INF/jsp/indexforms/reg-organization.jsp</result>
+		</action>
+		<action name="organization-updated" class="dashboardAction" method="regOrganization">	
+			<result name="regOrganization">/WEB-INF/jsp/indexforms/reg-organization.jsp</result>
+		</action>
+		<action name="partner-register" class="dashboardAction" method="regPartner">	
+			<result name="regPartner">/WEB-INF/jsp/indexforms/reg-partner.jsp</result>
+		</action>
+		<action name="partner-updated" class="dashboardAction" method="regPartner">	
+			<result name="regPartner">/WEB-INF/jsp/indexforms/reg-partner.jsp</result>
+		</action>
+		<action name="alerts" class="dashboardAction" method="alerts">	
+			<result name="alerts">/WEB-INF/jsp/indexforms/alerts.jsp</result>
+		</action>
+		<action name="tagcloud" class="dashboardAction" method="tagCloud">	
+			<result name="tagCloud">/WEB-INF/jsp/indexforms/tagcloud.jsp</result>
+		</action>
+		
+		<!-- Application reviewing process -->
+		<action name="review" class="approvalAction">
+			<result>/WEB-INF/jsp/review/list.jsp</result>
+			<result name="single" type="redirect-action">review/show?id=${paged.results[0].id}</result>
+			<result name="error" type="redirect-action">index</result>
+			<result name="input" type="redirect-action">index</result>
+		</action>
+		<action name="review/show" class="viewApplicationAction">
+			<result>/WEB-INF/jsp/review/form.jsp</result>
+			<result name="error" type="redirect-action">review</result>
+			<result name="input" type="redirect-action">review</result>
+		</action>
+		
+		<!-- Approve status updates -->
+		<action name="bc/approve" class="approveBudgetAction" method="approve">
+			<result name="success" type="redirect-action">review</result>
+			<result name="error">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="monitor" type="redirect-action">view?id=${budgetCode.internalApprover.application.id}</result>
+		</action>
+		<!-- Reject status updates -->
+		<action name="bc/reject" class="approveBudgetAction" method="reject">
+			<result name="success" type="redirect-action">review</result>
+			<result name="error">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="monitor" type="redirect-action">view?id=${budgetCode.internalApprover.application.id}</result>
+		</action>
+		
+		<!-- Approve status updates -->
+		<action name="dr/approve" class="approveDirectorAction" method="approve">
+			<result name="success" type="redirect-action">review</result>
+			<result name="error">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="monitor" type="redirect-action">view?id=${application.id}</result>
+		</action>
+		<!-- Reject status updates -->
+		<action name="dr/reject" class="approveDirectorAction" method="reject">
+			<result name="success" type="redirect-action">review</result>
+			<result name="error">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="input">/WEB-INF/jsp/review/list.jsp</result>
+			<result name="monitor" type="redirect-action">view?id=${application.id}</result>
+		</action>
+		
+		<!-- TAs records on My Budgets -->
+		<action name="my-budget-application" class="budgetCodeApplicationAction">
+			<result>/WEB-INF/jsp/request/my-budget-application-list.jsp</result>
+			<result name="error">/WEB-INF/jsp/request/my-budget-application-list.jsp</result>
+			<result name="input">/WEB-INF/jsp/request/my-budget-application-list.jsp</result>
+		</action>
+		
+		<action name="view" class="dispatchApplictionAction">
+			<result name="editable" type="redirect-action">edit?id=${application.id}</result>
+			<result name="readonly" type="redirect-action">readonly?id=${application.id}</result>
+			<result name="cfo" type="redirect-action">cfo/review?id=${application.id}</result>
+			<result name="budget" type="redirect-action">review/show?id=${application.id}</result>
+			<result name="error">/WEB-INF/jsp/generic-error.jsp</result>
+			<result>/WEB-INF/jsp/generic-error.jsp</result>
+		</action>
+		
+		<action name="appdetails" class="cdoApplicationAction" method="applicationDetails">
+			<result name="group">/WEB-INF/jsp/application/group-details.jsp</result>
+			<result name="graduate">/WEB-INF/jsp/application/graduate-details.jsp</result>
+			<result name="internship">/WEB-INF/jsp/application/internship-details.jsp</result>			
+			<result name="sabbatical">/WEB-INF/jsp/application/sabbatical-details.jsp</result>
+			<result name="nondegree">/WEB-INF/jsp/application/nondegree-details.jsp</result>
+			<result name="other">/WEB-INF/jsp/application/other-details.jsp</result>
+			<result name="individual">/WEB-INF/jsp/application/individual-details.jsp</result>
+			<result name="inhouse">/WEB-INF/jsp/application/inhouse-details.jsp</result>
+			<result name="staffdevelopment">/WEB-INF/jsp/application/staffdev-details.jsp</result>
+		</action>
+		
+		<action name="search" class="searchAction">
+			<result>/WEB-INF/jsp/search/results-paged.jsp</result>
+			<result name="person" type="redirect-action">person/profile?id=${persons[0].id}</result>
+			<result name="organization" type="redirect-action">organization/profile?id=${organizations[0].id}</result>
+			<result name="program" type="redirect-action">program/profile?id=${programs[0].id}</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainees[0].id}</result>
+			<result name="partner" type="redirect-action">partner/profile?id=${partners[0].id}</result>
+		</action>
+		
+		<action name="searchyear" class="advancedSearchAction" method="yearPickerSearch">
+			<result>/WEB-INF/jsp/advanced/searchyear.jsp</result>
+		</action>
+		
+		<action name="yearlyactivities" class="advancedSearchAction" method="yearlyActivities">
+			<result>/WEB-INF/jsp/advanced/searchyear_modules.jsp</result>
+		</action>
+
+		<!-- Person -->
+		<action name="person/profile" class="personProfileAction">
+			<result>/WEB-INF/jsp/person/profile.jsp</result>
+			<result name="reload" type="redirect-action">person/profile?id=${profile.id}</result>
+			<result name="tolist" type="redirect-action">index</result>
+		</action>
+		<action name="person/merge-profile" class="personProfileAction">
+			<result>/WEB-INF/jsp/person/merge-profile.jsp</result>
+		</action>
+		<action name="contact" class="updateContactAction">
+			<result name="reload" type="redirect-action">person/profile?id=${person.id}</result>
+			<result name="reload-organization" type="redirect-action">organization/profile?id=${organization.id}</result>
+			<result name="reload-partner" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="affiliation" class="updateAffiliationAction">
+			<result name="reload-person" type="redirect-action">person/profile?id=${person.id}</result>
+			<result name="reload-organization" type="redirect-action">organization/profile?id=${organization.id}</result>
+			<result name="reload-partner" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/classification" class="updateClassificationAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/category" class="updateCategoryAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/mandatecrop" class="updateMandateCropAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/corebusiness" class="updateCoreBusinessAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/corebusinesscategory" class="updateCoreBusinessCategoryAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/scale" class="updateScaleAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/sector" class="updateSectorAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/subsector" class="updateSubsectorAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/iitahub" class="updateIitaHubAction">
+			<result name="reload" type="redirect-action">partner/profile?id=${partner.id}</result>
+			<result name="tolist" type="redirect-action">partner/list</result>
+		</action>
+		
+		<action name="partner/partnerPersonContact" class="updatePartnerPersonContactAction">
+			<result name="reload-person" type="redirect-action">
+				person/profile?id=${person.id}</result>
+			<result name="reload-partner" type="redirect-action">
+				partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="person/remove" class="personProfileAction" method="delete">
+			<result name="success" type="redirect-action">index</result>
+			<result name="reload" type="redirect-action">person/profile?id=${profile.id}
+			</result>
+		</action>
+		<action name="add-person" class="addPersonAction">
+			<result name="success" type="redirect-action">person/profile?id=${person.id}
+			</result>
+			<result name="error">/WEB-INF/jsp/index.jsp
+			</result>
+		</action>
+
+		<action name="person/register" method="register">
+			<result>/WEB-INF/jsp/person/edit.jsp
+			</result>
+		</action>
+
+		<action name="person/document" class="personDocumentAction">
+			<result type="redirect-action">person/profile?id=${entityDocument.entity.id}
+			</result>
+		</action>
+		
+		<action name="partner/document" class="partnerDocumentAction">
+			<result type="redirect-action">partner/profile?id=${entityDocument.entity.id}
+			</result>
+		</action>
+				
+		<!-- Importing Partner Data from Excel -->
+		<action name="partner/import" class="importXLSPartnerAction">
+			<result>/WEB-INF/jsp/partner/importdata.jsp</result>
+		</action>
+		<action name="partner/importcontact" class="importXLSPartnerAction">
+			<result>/WEB-INF/jsp/partner/importcontactsdata.jsp</result>
+		</action>
+		<action name="partner/search" class="searchPartnerAction" method="execute">
+			<result>/WEB-INF/jsp/partner/search.jsp</result>
+		</action>
+		<action name="partner/download" class="downloadPartnerXLSAction" method="download">
+			<result name="download" type="stream">
+				<param name="contentType">application/x-binary</param>
+				<param name="inputName">downloadStream</param>
+				<param name="contentDisposition">inline;filename="${downloadFileName}"</param>
+				<param name="contentLength">0</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- Importing Alumni Data from Excel -->
+		<action name="alumni/import" class="importXLSAlumniAction">
+			<result>/WEB-INF/jsp/alumni/importdata.jsp</result>
+		</action>
+		<action name="alumni/search" class="searchAlumniAction" method="execute">
+			<result>/WEB-INF/jsp/alumni/search.jsp</result>
+		</action>
+		
+		<!-- advanced search action implementation -->
+		<action name="advanced/search" class="advancedSearchAction">
+			<result>/WEB-INF/jsp/advanced/search.jsp</result>
+		</action>
+		
+		<action name="alumni/index" class="alumniAction">
+			<result>/WEB-INF/jsp/alumni/alumni.jsp</result>
+		</action>
+		<action name="alumni/delete" class="alumniAction" method="delete">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${sourceId}</result>
+			<result name="person" type="redirect-action">person/profile?id=${sourceId}</result>
+			<result name="unknown">/WEB-INF/jsp/alumni/alumni.jsp</result>
+		</action>
+		<action name="alumni/download" class="downloadAlumniXLSAction"	method="download">
+			<result name="download" type="stream">
+				<param name="contentType">application/x-binary</param>
+				<param name="inputName">downloadStream</param>
+				<param name="contentDisposition">inline;filename="${downloadFileName}"</param>
+				<param name="contentLength">0</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- Trainer -->
+		<action name="trainer/profile" method="profileDashboard">
+			<result>/WEB-INF/jsp/trainer/profile.jsp
+			</result>
+		</action>
+		<action name="add-trainer" class="addTrainerAction">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}</result>
+			<result name="program" type="redirect-action">program/profile?id=${trainingProgram.id}</result>
+			<result name="trainingproposal" type="redirect-action">announcement/proposaleditdata?id=${trainingProposal.id}</result>
+			<result name="announcement" type="redirect-action">announcement/profile?id=${announcement.id}</result>
+		</action>
+
+		<action name="trainer/remove" class="addTrainerAction" method="removeSupervisor">
+			<result name="unknown" type="redirect-action">index</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<action name="update-trainer" class="addTrainerAction" method="update">
+			<result name="unknown">/WEB-INF/jsp/index.jsp
+			</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+
+		<!-- ALERT -->
+		<action name="alert/add" class="addAlertAction">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<action name="alert/update" class="addAlertAction" method="update">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<action name="alert/remove" class="addAlertAction" method="remove">
+			<result name="unknown">/WEB-INF/jsp/index.jsp
+			</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+
+		<action name="tag/add" class="addTagsAction">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+			<result name="partner" type="redirect-action">
+				partner/profile?id=${partner.id}</result>
+			<result name="announcement" type="redirect-action">
+				announcement/profile?id=${partner.id}</result>
+			<result name="application" type="redirect-action">
+				application/profile?id=${partner.id}</result>
+		</action>
+		
+		<action name="tag/remove" class="addTagsAction" method="remove">
+			<result name="unknown">/WEB-INF/jsp/index.jsp
+			</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+			<result name="partner" type="redirect-action">
+				partner/profile?id=${partner.id}</result>
+			<result name="announcement" type="redirect-action">
+				announcement/profile?id=${partner.id}</result>
+			<result name="application" type="redirect-action">
+				application/profile?id=${partner.id}</result>
+		</action>
+		<action name="tag/update" class="addTagsAction" method="update">
+			<result name="unknown" type="redirect-action">index</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+			<result name="partner" type="redirect-action">
+				partner/profile?id=${partner.id}</result>
+			<result name="announcement" type="redirect-action">
+				announcement/profile?id=${partner.id}</result>
+			<result name="application" type="redirect-action">
+				application/profile?id=${partner.id}</result>
+		</action>
+		
+		<!-- TAGS -->
+		<action name="tag" class="tagAction">
+			<result name="announcement" type="redirect-action">
+				announcement/profile?id=${tag.entity.id}
+			</result>
+			<result name="application" type="redirect-action">
+				application/profile?id=${tag.entity.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${tag.entity.id}
+			</result>
+			<result name="organization" type="redirect-action">
+				organization/profile?id=${tag.entity.id}
+			</result>
+			<result name="trainee" type="redirect-action">
+				trainee/profile?id=${tag.entity.id}
+			</result>
+			<result name="partner" type="redirect-action">
+				partner/profile?id=${tag.entity.id}
+			</result>
+			<result name="success" type="redirect-action">
+				index
+			</result>
+		</action>
+		<action name="tag/browse" class="tagBrowserAction">
+			<result>/WEB-INF/jsp/tags/results-paged.jsp
+			</result>
+		</action>
+		<action name="tag/cloud" class="tagBrowserAction" method="cloud">
+			<result name="cloud">/WEB-INF/jsp/tags/cloud.jsp
+			</result>
+			<result name="cloud-inline">/WEB-INF/jsp/tags/cloud-inline.jsp
+			</result>
+		</action>
+
+		<!-- Trainee -->
+		<action name="trainee/profile" class="traineeProfileAction">
+			<result>/WEB-INF/jsp/trainee/profile.jsp
+			</result>
+		</action>
+		<action name="add-trainee" class="addTraineeAction">
+			<result name="success" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="error">/WEB-INF/jsp/index.jsp
+			</result>
+		</action>
+		<action name="update-trainee" class="traineeProfileAction"
+			method="update">
+			<result name="reload" type="redirect-action">trainee/profile?id=${profile.id}
+			</result>
+		</action>
+		<action name="trainee/remove" class="addTraineeAction" method="removeTrainee">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/trainee/profile.jsp</result>
+			<result name="person" type="redirect-action">person/profile?id=${personId}</result>
+		</action>
+
+		<action name="add-trainee-eduinfo" class="addTraineeEducationalinfoAction">
+			<result name="success" type="redirect-action">
+				trainee/profile?id=${traineeEducationalInfo.person.id}</result>
+		</action>
+		<action name="trainee/download-file" class="traineeFilesAction"
+			method="download">
+			<result name="deleted" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+		</action>
+		<action name="trainee/files" class="traineeFilesAction">
+			<result>/WEB-INF/jsp/filebrowser/browse.jsp
+			</result>
+		</action>
+
+		<action name="trainee/upload-file" class="traineeFilesAction"
+			method="upload">
+			<result name="gears-ok">/WEB-INF/jsp/empty-file.jsp
+			</result>
+			<result name="success" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="reload" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+		</action>
+		
+			<action name="organization/tags" class="organizationTagBuilderAction">
+				<result>/WEB-INF/jsp/organization/profile-tags.jsp</result> 
+				<result	name="input">/WEB-INF/jsp/organization/profile-tags.jsp</result>
+				<result name="reload" type="redirect-action">organization/tags?id=${profile.id}</result>
+			</action>
+			
+			<action name="partner/tags" class="partnerTagBuilderAction">
+				<result>/WEB-INF/jsp/partner/profile-tags.jsp</result> 
+				<result	name="input">/WEB-INF/jsp/partner/profile-tags.jsp</result>
+				<result name="reload" type="redirect-action">partner/tags?id=${profile.id}</result>
+			</action>
+					
+			<action name="program/tags" class="trainingProgramTagBuilderAction">
+				<result>/WEB-INF/jsp/program/profile-tags.jsp</result> 
+				<result	name="input">/WEB-INF/jsp/program/profile-tags.jsp</result>
+				<result name="reload" type="redirect-action">program/tags?id=${profile.id}</result>
+			</action>
+			
+			<action name="trainee/tags" class="traineeTagBuilderAction">
+				<result>/WEB-INF/jsp/trainee/profile-tags.jsp</result> 
+				<result	name="input">/WEB-INF/jsp/trainee/profile-tags.jsp</result>
+				<result name="reload" type="redirect-action">trainee/tags?id=${profile.id}</result>
+			</action>
+
+		<action name="add-organization" class="addOrganizationAction">
+			<result name="success" type="redirect-action">
+				organization/profile?id=${organization.id}</result>
+		</action>
+		
+		<!-- Partner -->
+		<action name="partner/profile" class="partnerProfileAction">
+			<result>/WEB-INF/jsp/partner/profile.jsp
+			</result>
+			<result name="reload" type="redirect-action">
+				partner/profile?id=${profile.id}</result>
+			<result name="tolist" type="redirect-action">partner/list</result>
+		</action>
+		<action name="partner/associates" class="partnerProfileAction" method="affiliations">
+			<result>/WEB-INF/jsp/partner/profile-affiliations.jsp</result>
+		</action>
+		<action name="add-partner" class="addPartnerAction">
+			<result name="success" type="redirect-action">
+				partner/profile?id=${partner.id}</result>
+		</action>
+		<action name="partner/list" class="partnerListAction">
+			<result>/WEB-INF/jsp/partner/index.jsp
+			</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="partner/export" class="partnerListAction"
+			method="export">
+			<!--
+				No result defined, there's a global "download" action result in
+				struts.xml
+			-->
+		</action>
+		
+		<action name="trainees/list" class="traineeListAction">
+			<result>/WEB-INF/jsp/trainee/index.jsp
+			</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		
+		<action name="trainees/export" class="traineeListAction"
+			method="export">
+			<!--
+				No result defined, there's a global "download" action result in
+				struts.xml
+			-->
+		</action>
+		
+		<action name="trainees/yearlyexport" class="traineeListAction"
+			method="yearlyexport">
+			<!--
+				No result defined, there's a global "download" action result in
+				struts.xml
+			-->
+		</action>
+
+		<!-- Funding -->
+		<action name="add-funder" class="addFunderAction">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<action name="update-funder" class="addFunderAction" method="update">
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<action name="funding/remove" class="addFunderAction" method="remove">
+			<result name="unknown">/WEB-INF/jsp/index.jsp
+			</result>
+			<result name="trainee" type="redirect-action">trainee/profile?id=${trainee.id}
+			</result>
+			<result name="program" type="redirect-action">
+				program/profile?id=${trainingProgram.id}</result>
+		</action>
+		<!--
+			<action name="proposal/tags" class="projectTagBuilderAction">
+			<result>/WEB-INF/jsp/proposal/profile-tags.jsp</result> <result
+			name="input">/WEB-INF/jsp/proposal/profile-tags.jsp</result> <result
+			name="reload"
+			type="redirect-action">proposal/tags?id=${profile.id}</result>
+			</action>
+		-->
+
+		<!-- Trainee Educational Information -->
+		<action name="trainee/eduinfo" method="save">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+		<action name="trainee/eduinfo/edit" method="edit">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+		<action name="trainee/eduinfo/remove" method="delete">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+
+		<!-- Trainee Employer Information -->
+		<action name="trainee/employerinfo" method="save">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+		<action name="trainee/employerinfo/edit" method="edit">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+		<action name="trainee/employerinfo/remove" method="delete">
+			<result type="redirect-action">trainee/profile?id=${id}
+			</result>
+		</action>
+
+		<!-- Training Program -->
+		<action name="program/profile" class="trainingProgramProfileAction">
+			<result>/WEB-INF/jsp/program/profile.jsp</result>
+			<result name="reload" type="redirect-action">program/profile?id=${profile.id}</result>
+		</action>
+		
+		<action name="program/updateFiles" class="trainingProgramProfileAction" method="updateFiles">
+			<result>/WEB-INF/jsp/program/profile.jsp</result>
+			<result name="reload" type="redirect-action">program/profile?id=${profile.id}</result>
+		</action>
+		
+		<action name="add-program" class="addTrainingProgramAction">
+			<result name="success" type="redirect-action">program/profile?id=${program.id}</result>
+			<result name="error">/WEB-INF/jsp/index.jsp</result>
+		</action>
+		<action name="program/download-file" class="trainingProgramFilesAction"	method="download">
+			<result name="deleted" type="redirect-action">program/profile?id=${group.id}</result>
+		</action>
+		<action name="program/files" class="trainingProgramFilesAction">
+			<result>/WEB-INF/jsp/filebrowser/browse.jsp</result>
+		</action>
+		<action name="program/upload-file" class="trainingProgramFilesAction" method="upload">
+			<result name="gears-ok">/WEB-INF/jsp/empty-file.jsp</result>
+			<result name="success" type="redirect-action">program/profile?id=${group.id}</result>
+			<result name="reload" type="redirect-action">program/profile?id=${group.id}</result>
+		</action>
+		<action name="program/remove" class="trainingProgramProfileAction" method="remove">
+			<result name="success" type="redirect-action">index</result>
+			<result name="error">/WEB-INF/jsp/program/profile.jsp</result>
+		</action>
+		<action name="program/removeAttendance" class="trainingProgramProfileAction"
+			method="removeAttendance">
+			<result name="success" type="redirect-action">program/profile?id=${group.id}
+			</result>
+			<result name="error">/WEB-INF/jsp/program/profile.jsp
+			</result>
+		</action>
+		<action name="program/download-xls" class="downloadXLSAction"
+			method="download">
+			<result name="download" type="stream">
+				<param name="contentType">application/x-binary</param>
+				<param name="inputName">downloadStream</param>
+				<param name="contentDisposition">inline;filename="${downloadFileName}"</param>
+				<param name="contentLength">0</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="program/download-pdf" class="downloadXLSAction"
+			method="downloadPdf">
+			<result name="download" type="stream">
+				<param name="contentType">application/pdf</param>
+				<param name="inputName">downloadStream</param>
+				<param name="contentDisposition">inline;filename="${downloadPdfFileName}"</param>
+				<param name="contentLength">0</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<!--
+			<action name="document" class="documentAction"> <result
+			type="redirect">${referer}</result> </action>
+		-->
+
+		<!-- Training Program Attendance -->
+		<action name="program/attendance" method="save">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+		<action name="program/attendance/edit" method="edit">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+		<action name="program/attendance/remove" method="delete">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+
+		<!-- Training Program Session -->
+		<action name="program/session" method="save">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+		<action name="program/session/edit" method="edit">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+		<action name="program/session/remove" method="delete">
+			<result type="redirect-action">program/profile?id=${id}
+			</result>
+		</action>
+		<action name="programs/list" class="trainingProgramListAction">
+			<result>/WEB-INF/jsp/program/index.jsp
+			</result>
+			<result name="error" type="redirect-action">index</result>
+		</action>
+		<action name="programs/export" class="trainingProgramListAction"
+			method="export">
+			<!--
+				No result defined, there's a global "download" action result in
+				struts.xml
+			-->
+		</action>
+		
+		<action name="programs/yearlyexport" class="trainingProgramListAction"
+			method="yearlyexport">
+			<!--
+				No result defined, there's a global "download" action result in
+				struts.xml
+			-->
+		</action>
+		<!--
+			<action name="agreement/tags" class="agreementTagBuilderAction">
+			<result>/WEB-INF/jsp/agreement/profile-tags.jsp</result> <result
+			name="input">/WEB-INF/jsp/agreement/profile-tags.jsp</result> <result
+			name="reload"
+			type="redirect-action">agreement/tags?id=${profile.id}</result>
+			</action>
+		-->
+
+		<!-- Organization -->
+		<action name="organization/profile" class="organizationProfileAction">
+			<result>/WEB-INF/jsp/organization/profile.jsp</result>
+			<result name="reload" type="redirect-action">organization/profile?id=${profile.id}</result>
+			<result name="tolist" type="redirect-action">index</result>
+		</action>
+		<action name="organization/affiliations" class="organizationProfileAction" method="affiliations">
+			<result>/WEB-INF/jsp/organization/profile-affiliations.jsp</result>
+		</action>
+		<action name="organization/merge-profile" class="organizationProfileAction">
+			<result>/WEB-INF/jsp/organization/merge-profile.jsp
+			</result>
+		</action>
+
+		<action name="add-organization" class="addOrganizationAction">
+			<result name="success" type="redirect-action">
+				organization/profile?id=${organization.id}</result>
+		</action>
+
+
+		<!-- Calendar -->
+		<action name="calendar" class="calendarAction">
+			<result>/WEB-INF/jsp/calendar/month.jsp
+			</result>
+		</action>
+
+		<!-- File templates download -->
+		<action name="xls/import" class="downloadXLSAction">
+			<result>/WEB-INF/jsp/xls/form.jsp</result>
+		</action>
+		
+		<!-- Document -->
+		<action name="document-download" class="downloadDocumentAction" />
+		<action name="document" class="documentAction">
+			<result type="redirect">${referer}</result>
+		</action>
+		
+		<!--
+			Merger <action name="merge" class="mergeAction">
+			<result>/WEB-INF/jsp/merge/merge.jsp</result> </action>
+		-->
+		<!-- Merge -->
+		<action name="merge" class="mergeAction">
+			<result>/WEB-INF/jsp/merge/auto-merge.jsp
+			</result>
+			<result name="merged-organization" type="redirect-action">
+				organization/profile?id=${left.id}</result>
+			<result name="merged-person" type="redirect-action">
+				person/profile?id=${left.id}</result>
+		</action>
+	</package>
+
+	<!-- Selection package -->
+	<package name="selection" namespace="/selection" extends="default">
+		<action name="index" class="selectionAction">
+			<result>/WEB-INF/jsp/selection/index.jsp
+			</result>
+			<result name="refresh" type="redirect-action">index</result>
+			<result name="input">/WEB-INF/jsp/selection/index.jsp
+			</result>
+		</action>
+		<action name="selection" class="selectionAction">
+			<result name="refresh" type="redirect-action">index</result>
+			<result name="goback" type="redirect">${referer}</result>
+		</action>
+	</package>
+
+	<!-- Ajax actions -->
+	<package name="ajax-project" extends="public-ajax" namespace="/ajax">
+		<action name="public-ajax" class="publicAjaxAction">
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+		<action name="gui-ajax" class="privateAjaxAction">
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+		<action name="relatedTrainingProposal" class="publicAjaxAction" method="relatedProposals">
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+	</package>
+	<package name="projectajax" extends="json-default" namespace="/relatedajax">
+		<action name="relatedTrainingProposal" class="publicAjaxAction" method="relatedProposals">
+			<result name="success" type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+	</package>
+	
+</struts>

@@ -1,0 +1,104 @@
+#
+# Default application properties
+# Use shared/classes/... to override
+
+# Directory where application data is stored
+application.dataDir=/home/ken/Temporary/training
+application.dataDirLocal=${application.dataDir}
+
+# Where to store project files
+storage.traineeStorage=${application.dataDir}/individual
+# Where to store task files
+storage.groupStorage=${application.dataDir}/group
+# Where to store alumni files
+storage.alumniStorage=${application.dataDir}/alumni
+
+# Where to store partner files
+storage.partnerStorage=${application.dataDir}/partners
+
+# Where to store announcement files
+storage.partnerStorage=${application.dataDir}/announcements
+
+# Where to store applicant's passports
+storage.passportStorage=${application.dataDir}/passports
+
+application.production=false
+application.host=localhost:8082
+# HTTP url without trailing /
+application.url=http://${application.host}/training
+
+
+# Application identifier as used by IITA Security model
+application.securityId=training
+application.additionalRoles=ROLE_ADMIN, ROLE_CFO, ROLE_MAIL, ROLE_CRM, ROLE_TRAININGUNITHEAD, ROLE_QUERYMANAGER, ROLE_QUERY, ROLE_MERGE, ROLE_READALL, ROLE_PARTNERADMIN, ROLE_PARTNERREADALL, ROLE_APPLICATION, ROLE_REGISTRATION, ROLE_APPLICANT, ROLE_STAFF, ROLE_IYAICT, ROLE_IYAMANAGER, ROLE_IYAUSER
+
+auth.ldap.uri=ldap://iitaad2.iita.cgiarad.org:3268/DC=CGIARAD,DC=ORG
+auth.ldap.username=IITA-IBADAN\\ADread
+auth.ldap.password=Dreadiita
+auth.ldap.domainName=IITA-IBADAN
+auth.automaticImport=true
+ 
+krb5.principal=HTTP/tomcat2.iita.cgiarad.org
+krb5.password=test2010
+krb5.jaasConfigSection=KerberosServer
+krb5.domain=IITA.CGIARAD.ORG
+krb5.excludedIP=172.30.1.41, 172.30.1.30
+
+# Database connection settings
+database.driver=com.mysql.jdbc.Driver
+database.url=jdbc:mysql://localhost/training?useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=utf8
+database.username=root
+database.password=mysql
+
+# Hibernate configuration
+hibernate.database=MYSQL
+hibernate.showSql=true
+hibernate.hbm2ddl=do-nothing
+hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+
+# Notifications
+notifications.class=org.iita.crm.aspect.CRMNotificationsImpl
+notifications.aspectj=org.iita.crm.aspect.CRMSystemArchitecture
+
+# JSM queue settings
+#notifications.jms.broker.url=failover:(tcp://activemq1.iita.cgiarad.org:61616?soTimeout=3000&connectionTimeout=5000&maximumConnections=10)
+notifications.jms.broker.url=failover:(tcp://activemq1.iita.cgiarad.org:61616?soTimeout=5000&connectionTimeout=5000)&timeout=5000
+notifications.jms.broker.username=
+notifications.jms.broker.password=
+
+notifications.jms.queue.outgoing=org.iita.notifications.QUEUE.test
+
+# AppMail
+appmail.jms.queue=org.iita.appmail.test.TRAINING
+
+# Mail
+mail.overrideRecipient=k.oraegbunam@cgiar.org
+mail.alwaysBCC=k.oraegbunam@cgiar.org
+#javax.net.debug=ssl,handshake
+#mail.debug=true
+#mail.smtp.user=ADread
+#mail.smtp.password=Dreadiita
+mail.smtp.host=casarray.iita.cgiarad.org
+mail.smtp.auth=false
+mail.protocol=smtp
+mail.port=25
+mail.smtp.user=testac
+mail.smtp.password=
+mail.encoding=UTF-8
+<<<<<<< .mine
+mail.sender.default=IITA Training Database System <IITA-TrainingUnit@cgiar.org>
+=======
+mail.sender.default=IITA Training Database System <IITA-TrainingUnit@cgiar.org.org>
+>>>>>>> .r4167
+
+# Google Analytics
+google.analytics.id=
+# IITA Google maps key (matija.obreza@gmail.com): http://iita.org
+google.maps.key=ABQIAAAA6SPOQ9Bd95WFl0M2_MbbSBRN3akhAGL9hmvx4-AtMDkjp7ht8hRj6_uAYw1PmBTr8bjp3GGyMhD1ew
+# IITA Google maps key (matija.obreza@gmail.com): http://iita.cgiarad.org
+
+#google.maps.key=ABQIAAAA6SPOQ9Bd95WFl0M2_MbbSBSnMv-2iFnsjBWcfyzuefPLlN44BhSIpE8qz8aDidSnKf2b1JN1ZZYFnQ
+
+#Liferay Webservices credentials
+liferay.endPointStub=http://liferay.iita.cgiarad.org/tunnel-web/axis/
+liferay.authEndpointStub=http://username:password@liferay.iita.cgiarad.org/tunnel-web/secure/axis/
